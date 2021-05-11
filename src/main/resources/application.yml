@@ -1,0 +1,12 @@
+spring:
+  datasource:
+  #mysql 8.0 和北京时区相差8个小时 所以这里需要指定时区为上海  或者也可以使用北京时区或香港时区
+   url: jdbc:mysql://139.186.148.75:3366/house-keeping?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=Asia/Shanghai
+   username: root
+   password: Kdw$051755.
+   driver-class-name: com.mysql.cj.jdbc.Driver
+
+mybatis-plus:
+  mapper-locations: /mapper/*/*Mapper.xml
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
