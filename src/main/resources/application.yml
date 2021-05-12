@@ -1,12 +1,91 @@
-spring:
-  datasource:
-  #mysql 8.0 �ͱ���ʱ�����8��Сʱ ����������Ҫָ��ʱ��Ϊ�Ϻ�  ����Ҳ����ʹ�ñ���ʱ�������ʱ��
-   url: jdbc:mysql://139.186.148.75:3366/house-keeping?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=Asia/Shanghai
-   username: root
-   password: Kdw$051755.
-   driver-class-name: com.mysql.cj.jdbc.Driver
-
 mybatis-plus:
   mapper-locations: /mapper/*/*Mapper.xml
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+sharding:
+  jdbc:
+    datasource:
+      names: master,slave1,slave2
+      master:
+        type: com.alibaba.druid.pool.DruidDataSource
+        driverClassName: com.mysql.jdbc.Driver
+        url: jdbc:mysql://139.186.148.75:3366/house-keeping?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=Asia/Shanghai
+        username: root
+        password: Kdw$051755.
+        #最大连接数
+        maxPoolSize: 20
+      slave1: # 配置第一个从库
+        type: com.alibaba.druid.pool.DruidDataSource
+        driverClassName: com.mysql.jdbc.Driver
+        url: jdbc:mysql://139.186.162.198:3366/house-keeping?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=Asia/Shanghai
+        username: root
+        password: Kdw$051755.
+        maxPoolSize: 20
+      slave2: # 配置第二个从库
+        type: com.alibaba.druid.pool.DruidDataSource
+        driverClassName: com.mysql.jdbc.Driver
+        url: jdbc:mysql://139.186.162.76:3366/house-keeping?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=Asia/Shanghai
+        username: root
+        password: Kdw$051755.
+        maxPoolSize: 20
+    config:
+      masterslave: # 配置读写分离
+        load-balance-algorithm-type: round_robin # 配置从库选择策略，提供轮询与随机，这里选择用轮询//random 随机 //round_robin 轮询
+        name: db1s2
+        master-data-source-name: master
+        slave-data-source-names: slave1,slave2
+    props:
+        sql: # 开启SQL显示，默认值: false，注意：仅配置读写分离时不会打印日志！！！
+          show: true
+spring:
+  main:
+    allow-bean-definition-overriding: true
+  datasource:
+    druid:
+      db-type: com.alibaba.druid.pool.DruidDataSource
+      filters: stat                                       #属性类型是字符串，通过别名的方式配置扩展插件，常用的插件有：监控统计用的filter:stat日志用的filter:log4j防御sql注入的filter:wall
+      max-active: 20                                      #最大连接池数量
+      initial-size: 1                                     #初始化时建立物理连接的个数。初始化发生在显示调用init方法，或者第一次getConnection时
+      max-wait: 60000                                     #获取连接时最大等待时间，单位毫秒
+      min-idle: 1
+      time-between-eviction-runs-millis: 60000            #1) Destroy线程会检测连接的间隔时间2) testWhileIdle的判断依据，详细看testWhileIdle属性的说明
+      min-evictable-idle-time-millis: 300000
+      validation-query: select 'x'                        #用来检测连接是否有效的sql，要求是一个查询语句。如果validationQuery为null，testOnBorrow、testOnReturn、testWhileIdle都不会其作用。
+      test-while-idle: true                               #建议配置为true，不影响性能，并且保证安全性。申请连接的时候检测，如果空闲时间大于timeBetweenEvictionRunsMillis，执行validationQuery检测连接是否有效。
+      test-on-return: false                               #归还连接时执行validationQuery检测连接是否有效，做了这个配置会降低性能
+      test-on-borrow: false                               #申请连接时执行validationQuery检测连接是否有效，做了这个配置会降低性能。
+      pool-prepared-statements: false                     #是否缓存preparedStatement，也就是PSCache。PSCache对支持游标的数据库性能提升巨大，比如说oracle。在mysql下建议关闭。
+      max-open-prepared-statements: 20                    #要启用PSCache，必须配置大于0，当大于0时，poolPreparedStatements自动触发修改为true。在Druid中，不会存在Oracle下PSCache占用内存过多的问题，可以把这个数值配置大一些，比如说100
+      # 配置多数据源监控
+      master:
+        name: master
+        driverClassName: com.mysql.jdbc.Driver
+        url: jdbc:mysql://139.186.148.75:3366/house-keeping?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=Asia/Shanghai
+        username: root
+        password: Kdw$051755.
+      slave1:
+        name: slave1
+        driverClassName: com.mysql.jdbc.Driver
+        url: jdbc:mysql://139.186.162.198:3366/house-keeping?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=Asia/Shanghai
+        username: root
+        password: Kdw$051755.
+      slave2:
+        name: slave2
+        driverClassName: com.mysql.jdbc.Driver
+        url: jdbc:mysql://139.186.162.76:3366/house-keeping?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=Asia/Shanghai
+        username: root
+        password: Kdw$051755.
+      stat-view-servlet:
+        enabled: true
+        url-pattern: "/druid/*"
+        login-username: admin
+        login-password: admin
+      web-stat-filter:
+        enabled: true
+        url-pattern: "/*"
+        exclusions: "*.js,*.gif,*.jpg,*.bmp,*.png,*.css,*.ico,/druid/*"
+      filter:
+        stat:
+          db-type: mysql
+          log-slow-sql: true
+          slow-sql-millis: 2000
