@@ -4,6 +4,7 @@ import com.cloud.sys.entity.UserDetail;
 import com.cloud.sys.mapper.UserDetailMapper;
 import com.cloud.sys.service.IUserDetailService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.cloud.vo.LoginSuccessVO;
 import org.springframework.stereotype.Service;
 
 /**
@@ -17,4 +18,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserDetailServiceImpl extends ServiceImpl<UserDetailMapper, UserDetail> implements IUserDetailService {
 
+    @Override
+    public LoginSuccessVO getUserDetailById(Integer userId) {
+        return this.baseMapper.getUserDetailById(userId);
+    }
 }

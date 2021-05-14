@@ -1,7 +1,11 @@
 package com.cloud.sys.service;
 
+import com.cloud.sys.entity.Menu;
+import com.cloud.sys.entity.Role;
 import com.cloud.sys.entity.User;
 import com.baomidou.mybatisplus.extension.service.IService;
+
+import java.util.List;
 
 /**
  * <p>
@@ -13,4 +17,24 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface IUserService extends IService<User> {
 
+    /**
+     * 根据手机号查询用户
+     * @param s 手机号
+     * @return 用户信息
+     */
+    User selectUserByPhoneNumber(String s);
+
+    /**
+     * 获取用户角色信息
+     * @param userId 用户id
+     * @return 角色集合
+     */
+    List<Role> selectRoleByUserId(Integer userId);
+
+    /**
+     * 获取用户权限列表
+     * @param userId 用户id
+     * @return 权限集合
+     */
+    List<Menu> selectMenuByUserId(Integer userId);
 }

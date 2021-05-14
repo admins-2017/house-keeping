@@ -2,4 +2,10 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cloud.sys.mapper.UserMapper">
 
+    <select id="getMenus" resultType="com.cloud.sys.entity.Menu">
+        SELECT DISTINCT m.* FROM sys_user_role ur
+			LEFT JOIN sys_role_menu rm ON ur.role_id = rm.role_id
+			LEFT JOIN sys_menu m ON rm.menu_id = m.menu_id
+		WHERE ur.user_id = #{userId}
+    </select>
 </mapper>

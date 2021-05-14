@@ -53,5 +53,7 @@ public class UserDetail implements Serializable {
     @ApiModelProperty(value = "用户邮箱")
     private String userDetailMail;
 
+    @ApiModelProperty(value = "用户所在门店id")
+    private Integer shopId;
 
 }
