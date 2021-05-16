@@ -41,10 +41,8 @@ public class JWTAuthenticationTokenFilter extends BasicAuthenticationFilter {
         // 获取请求头中JWT的Token
         String tokenHeader = request.getHeader(JWTConfig.tokenHeader);
         if (null!=tokenHeader && tokenHeader.startsWith(JWTConfig.tokenPrefix)) {
-            log.info("tokenHeader: {}",tokenHeader);
             // 截取JWT前缀
             String token = tokenHeader.replace(JWTConfig.tokenPrefix, "");
-            log.info("token: {}",token);
             // 解析JWT
             Claims claims = Jwts.parser()
                     .setSigningKey(JWTConfig.secret)
@@ -71,6 +69,7 @@ public class JWTAuthenticationTokenFilter extends BasicAuthenticationFilter {
                 securityUser.setUserId(Integer.decode(claims.getId()));
 //                    securityUser.setTenantId(Long.parseLong(claims.get("tenant_id").toString()));
                 securityUser.setAuthorities(authorities);
+                log.info("获取请求携带用户信息："+securityUser.toString());
                 UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(securityUser, userId, authorities);
                 SecurityContextHolder.getContext().setAuthentication(authentication);
             }

@@ -28,9 +28,6 @@ public class SecurityUserDetailsService implements UserDetailsService {
      */
     @Override
     public SecurityUser loadUserByUsername(String username) throws UsernameNotFoundException {
-        System.out.println("执行方法： loadUserByUsername");
-        System.out.println("执行方法： username"+username);
-
         // 查询用户信息
         User user =userService.getOne(new QueryWrapper<User>().lambda().eq(User::getLoginName,username));
         if (user!=null){

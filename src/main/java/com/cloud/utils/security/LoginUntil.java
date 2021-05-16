@@ -83,6 +83,9 @@ public class LoginUntil {
     }
 
     private Set<GrantedAuthority> getGrantedAuthorities(String code, String result, SecurityUser securityUser) {
+        log.info("code"+code);
+        log.info("result:"+result);
+
         if (!redisOperator.exists(code)) {
             throw new LoginCodeException("验证码不存在,请刷新验证码");
         }
