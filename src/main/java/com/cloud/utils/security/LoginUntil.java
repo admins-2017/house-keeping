@@ -42,6 +42,7 @@ public class LoginUntil {
     private RedisOperator redisOperator;
 
     public UsernamePasswordAuthenticationToken loginByUserName(HttpServletRequest request, Authentication authentication ){
+        log.info("执行用户名密码登录");
         String code = request.getParameter("code");
         String result = request.getParameter("result");
         // 获取表单输入中返回的用户名
@@ -69,11 +70,6 @@ public class LoginUntil {
         String result = request.getParameter("result");
         String number =request.getParameter("number");
 
-        log.info("code"+code);
-        log.info("result"+result);
-        log.info("number"+number);
-
-
         SecurityUser securityUser = smsSecurityUserDetailsService.loadUserByUsername(number);
         if (securityUser == null) {
             throw new UsernameNotFoundException("用户不存在");
@@ -83,9 +79,6 @@ public class LoginUntil {
     }
 
     private Set<GrantedAuthority> getGrantedAuthorities(String code, String result, SecurityUser securityUser) {
-        log.info("code"+code);
-        log.info("result:"+result);
-
         if (!redisOperator.exists(code)) {
             throw new LoginCodeException("验证码不存在,请刷新验证码");
         }

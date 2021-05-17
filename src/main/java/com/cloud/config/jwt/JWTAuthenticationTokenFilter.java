@@ -18,7 +18,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -41,9 +40,7 @@ public class JWTAuthenticationTokenFilter extends BasicAuthenticationFilter {
         // 获取请求头中JWT的Token
         String tokenHeader = request.getHeader(JWTConfig.tokenHeader);
         if (null!=tokenHeader && tokenHeader.startsWith(JWTConfig.tokenPrefix)) {
-            // 截取JWT前缀
             String token = tokenHeader.replace(JWTConfig.tokenPrefix, "");
-            // 解析JWT
             Claims claims = Jwts.parser()
                     .setSigningKey(JWTConfig.secret)
                     .parseClaimsJws(token)
@@ -67,9 +64,8 @@ public class JWTAuthenticationTokenFilter extends BasicAuthenticationFilter {
                 SecurityUser securityUser = new SecurityUser();
                 securityUser.setUsername(claims.getSubject());
                 securityUser.setUserId(Integer.decode(claims.getId()));
-//                    securityUser.setTenantId(Long.parseLong(claims.get("tenant_id").toString()));
+                securityUser.setLoginName(claims.get("login_name").toString());
                 securityUser.setAuthorities(authorities);
-                log.info("获取请求携带用户信息："+securityUser.toString());
                 UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(securityUser, userId, authorities);
                 SecurityContextHolder.getContext().setAuthentication(authentication);
             }

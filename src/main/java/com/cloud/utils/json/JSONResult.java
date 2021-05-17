@@ -1,10 +1,17 @@
 package com.cloud.utils.json;
 
 import com.alibaba.fastjson.JSON;
+import com.cloud.exception.http.HttpException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 
 import javax.servlet.ServletResponse;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.PrintWriter;
 import java.io.Serializable;
 import java.util.HashMap;
@@ -44,10 +51,6 @@ public class JSONResult implements Serializable {
      * 响应中的数据
      */
     private Object data;
-    /**
-     *  不使用
-     */
-    private String ok;
 
     public static JSONResult build(Integer status, String msg, Object data) {
         return new JSONResult(status, msg, data);
@@ -73,7 +76,7 @@ public class JSONResult implements Serializable {
         return new JSONResult(object,msg);
     }
 
-    public static JSONResult errorNofind(String msg) {
+    public static JSONResult errorNotFind(String msg) {
         return new JSONResult(404, msg, null);
     }
 
@@ -93,9 +96,6 @@ public class JSONResult implements Serializable {
 
     }
 
-//    public static LeeJSONResult build(Integer status, String msg) {
-//        return new LeeJSONResult(status, msg, null);
-//    }
 
     public JSONResult(Integer status, String msg, Object data) {
         this.status = status;
@@ -211,14 +211,6 @@ public class JSONResult implements Serializable {
         }
     }
 
-    public String getOk() {
-        return ok;
-    }
-
-    public void setOk(String ok) {
-        this.ok = ok;
-    }
-
 
     /**
      * 使用response输出JSON 用于security
@@ -227,11 +219,13 @@ public class JSONResult implements Serializable {
      * @Param  resultMap 数据
      * @Return void
      */
-    public static void responseJson(ServletResponse response, Map<String, Object> resultMap){
+    public static void responseJson(HttpServletResponse response, Map<String, Object> resultMap){
         PrintWriter out = null;
+        HttpStatus status = HttpStatus.resolve(401);
         try {
             response.setCharacterEncoding("UTF-8");
             response.setContentType("application/json");
+            response.setStatus(resultMap.get("code").hashCode());
             out = response.getWriter();
             out.println(JSON.toJSONString(resultMap));
         } catch (Exception e) {
@@ -243,6 +237,24 @@ public class JSONResult implements Serializable {
             }
         }
     }
+
+
+    public static ResponseEntity<JSONResult> responseJson(HttpServletRequest request , Exception e){
+        JSONResult unifyResponse= new  JSONResult(401,"登录失效，请重新登录",request.getMethod()+" "+request.getRequestURI());
+        /*
+         * ResponseEntity 定义http返回体
+         * 参数1 请求消息响应体
+         * 参数2 httpHeaders 请求消息响应体头部
+         * 参数3 httpStatus 请求消息响应状态
+         */
+        HttpHeaders headers = new HttpHeaders();
+//        设置返回体的格式
+        headers.setContentType(MediaType.APPLICATION_JSON);
+//        格式化http返回状态
+        HttpStatus status = HttpStatus.resolve(401);
+        return new ResponseEntity<>(unifyResponse,headers,status);
+    }
+
     /**
      * 返回成功示例 用于security
      * @Author Sans

@@ -13,6 +13,7 @@ import java.util.Date;
  * @author 康东伟
  * @date 2021/5/14
  */
+@Slf4j
 public class JWTTokenUtil {
 
     /**
@@ -26,6 +27,7 @@ public class JWTTokenUtil {
      * @return Token 用户令牌
      */
     public static String createAccessToken(SecurityUser securityUser){
+        log.info("生成令牌 security:"+securityUser);
         // 登陆成功生成JWT
         return Jwts.builder()
                 // 放入用户名和用户ID
@@ -40,6 +42,7 @@ public class JWTTokenUtil {
                 // 自定义属性 放入用户拥有权限
                 .claim("authorities", JSON.toJSONString(securityUser.getAuthorities()))
                 .claim("tenant_id",securityUser.getTenantId())
+                .claim("login_name",securityUser.getUsername())
                 // 失效时间
                 .setExpiration(new Date(System.currentTimeMillis() + JWTConfig.expiration))
                 // 签名算法和密钥

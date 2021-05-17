@@ -1,5 +1,6 @@
 package com.cloud.sys.mapper;
 
+import com.cloud.bo.UserInfoBO;
 import com.cloud.sys.entity.Menu;
 import com.cloud.sys.entity.Role;
 import com.cloud.sys.entity.User;
@@ -49,4 +50,24 @@ public interface UserMapper extends BaseMapper<User> {
      * @return 权限集合
      */
     List<Menu> getMenus(Integer userId);
+
+    /**
+     * 根据登录名获取用户基本信息
+     * @param loginName 登录名
+     * @return 用户基本信息
+     */
+    @Select("SELECT\n" +
+            "\tsu.user_id,\n" +
+            "\tsu.login_name,\n" +
+            "\tsu.PASSWORD,\n" +
+            "\tsu.user_status AS STATUS,\n" +
+            "\tsu.tenant_id,\n" +
+            "\tsu.registered_time,\n" +
+            "\tsud.user_name\n" +
+            "FROM\n" +
+            "\tsys_user su\n" +
+            "\tJOIN sys_user_detail sud ON su.user_id = sud.user_id \n" +
+            "WHERE\n" +
+            "\tlogin_name = #{name}")
+    UserInfoBO getUserInfo(@Param("name") String loginName);
 }

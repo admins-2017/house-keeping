@@ -1,5 +1,6 @@
 package com.cloud.sys.service;
 
+import com.cloud.bo.UserInfoBO;
 import com.cloud.sys.entity.Menu;
 import com.cloud.sys.entity.Role;
 import com.cloud.sys.entity.User;
@@ -37,4 +38,11 @@ public interface IUserService extends IService<User> {
      * @return 权限集合
      */
     List<Menu> selectMenuByUserId(Integer userId);
+
+    /**
+     * 根据登录名获取用户基本信息
+     * @param loginName 登录用户名
+     * @return 用户基本信息
+     */
+    UserInfoBO getUserInfo(String loginName);
 }

@@ -39,6 +39,7 @@ public class UserLoginSuccessHandler implements AuthenticationSuccessHandler {
          组装JWT
          */
         SecurityUser userEntity =  (SecurityUser) authentication.getPrincipal();
+        log.info("userEntity:"+userEntity);
         String token = JWTTokenUtil.createAccessToken(userEntity);
         token = JWTConfig.tokenPrefix + token;
         //为前端提供返回vo
@@ -50,6 +51,7 @@ public class UserLoginSuccessHandler implements AuthenticationSuccessHandler {
         Map<String,Object> resultData = new HashMap<>(3);
         resultData.put("meta", JSONResult.login());
         resultData.put("data",successVo);
+        resultData.put("code",200);
 
         JSONResult.responseJson(response,resultData);
     }

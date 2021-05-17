@@ -1,6 +1,7 @@
 package com.cloud.config.security.service;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.cloud.bo.UserInfoBO;
 import com.cloud.config.security.entity.SecurityUser;
 import com.cloud.sys.entity.User;
 import com.cloud.sys.service.IUserService;
@@ -29,7 +30,7 @@ public class SecurityUserDetailsService implements UserDetailsService {
     @Override
     public SecurityUser loadUserByUsername(String username) throws UsernameNotFoundException {
         // 查询用户信息
-        User user =userService.getOne(new QueryWrapper<User>().lambda().eq(User::getLoginName,username));
+        UserInfoBO user =userService.getUserInfo(username);
         if (user!=null){
             // 组装参数
             SecurityUser securityUser = new SecurityUser();

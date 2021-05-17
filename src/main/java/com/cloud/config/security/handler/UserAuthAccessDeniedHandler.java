@@ -20,6 +20,6 @@ public class UserAuthAccessDeniedHandler implements AccessDeniedHandler {
      */
     @Override
     public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException exception){
-        JSONResult.responseJson(response,JSONResult.resultCode(403,"未授权"));
+        JSONResult.responseJson(response,JSONResult.resultCode(403,"权限不足，请联系管理员调整"));
     }
 }

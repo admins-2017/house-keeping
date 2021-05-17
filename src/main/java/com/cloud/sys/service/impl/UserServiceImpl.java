@@ -1,6 +1,7 @@
 package com.cloud.sys.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.cloud.bo.UserInfoBO;
 import com.cloud.sys.entity.Menu;
 import com.cloud.sys.entity.Role;
 import com.cloud.sys.entity.User;
@@ -35,5 +36,10 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     @Override
     public List<Menu> selectMenuByUserId(Integer userId) {
         return this.baseMapper.getMenus(userId);
+    }
+
+    @Override
+    public UserInfoBO getUserInfo(String loginName) {
+        return this.baseMapper.getUserInfo(loginName);
     }
 }

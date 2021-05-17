@@ -143,14 +143,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 // 配置没有权限自定义处理类
                 .exceptionHandling().accessDeniedHandler(userAuthAccessDeniedHandler);
-
-
         // 基于Token不需要session
 //        http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         // 禁用缓存并开启iframe调用
         http.headers().cacheControl().and().frameOptions().disable();
         // 添加JWT过滤器
         http.addFilter(new JWTAuthenticationTokenFilter(authenticationManager()));
-
     }
 }
