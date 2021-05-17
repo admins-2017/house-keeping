@@ -3,6 +3,7 @@ package com.cloud;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.cloud.config.redis.RedisOperator;
 import com.cloud.sys.entity.User;
 import com.cloud.sys.mapper.UserMapper;
 import com.cloud.sys.service.IUserService;
@@ -20,6 +21,17 @@ class ApplicationTests {
 
     @Autowired
     private IUserService userService;
+
+
+
+    @Autowired
+    private RedisOperator redisOperator;
+
+    @Test
+    public void testRedis(){
+        redisOperator.set("frist","redis");
+    }
+    
 
     @Test
     void contextLoads() {

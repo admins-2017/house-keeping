@@ -4,6 +4,7 @@ package com.cloud.sys.controller;
 import com.cloud.config.redis.RedisOperator;
 import com.cloud.config.security.entity.SecurityUser;
 import com.cloud.exception.http.ForbiddenException;
+import com.cloud.exception.http.NotFoundException;
 import com.cloud.utils.json.JSONResult;
 import com.cloud.utils.security.SecurityUntil;
 import com.wf.captcha.ArithmeticCaptcha;
@@ -93,5 +94,10 @@ public class UserController {
     public String testError() {
         int i = 1/0;
         return "";
+    }
+
+    @GetMapping("/test/error2")
+    public String testError2() {
+        throw new NotFoundException(40001);
     }
 }

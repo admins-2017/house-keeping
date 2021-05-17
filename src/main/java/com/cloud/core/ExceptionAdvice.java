@@ -2,8 +2,8 @@ package com.cloud.core;
 
 import com.cloud.core.configuration.ExceptionCodeConfiguration;
 import com.cloud.exception.http.HttpException;
-import com.cloud.utils.json.JSONResult;
-import io.jsonwebtoken.ExpiredJwtException;
+import com.cloud.utils.json.UnifyResponse;
+import io.lettuce.core.RedisException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -45,8 +45,15 @@ public class ExceptionAdvice {
      */
     @ExceptionHandler(value= Exception.class)
     @ResponseStatus(code = HttpStatus.INTERNAL_SERVER_ERROR)
-    public JSONResult handleException(HttpServletRequest request , Exception e){
-        return new JSONResult(9999,"服务器内部出错",request.getMethod()+" "+request.getRequestURI());
+    public UnifyResponse handleException(HttpServletRequest request , Exception e){
+        System.out.println(e.getMessage());
+        return new  UnifyResponse(9999,"服务器内部出错",request.getMethod()+" "+request.getRequestURI());
+    }
+
+    @ExceptionHandler(value= RedisException.class)
+    @ResponseStatus(code = HttpStatus.INTERNAL_SERVER_ERROR)
+    public UnifyResponse handleRuntimrException(HttpServletRequest request , Exception e){
+        return new  UnifyResponse(9999,"redis连接失败 请重试",request.getMethod()+" "+request.getRequestURI());
     }
 
     /**
@@ -56,12 +63,13 @@ public class ExceptionAdvice {
      * @return 消息体封装的UnifyResponse返回类
      */
     @ExceptionHandler(HttpException.class)
-    public ResponseEntity<JSONResult> handleHttpException(HttpServletRequest request , HttpException e){
+    public ResponseEntity<UnifyResponse> handleHttpException(HttpServletRequest request , HttpException e){
 //        获取异常code码
         Integer code = e.getCode();
 //        获取httpStatus状态码
         Integer httpStatusCode = e.getHttpStatusCode();
-        JSONResult jsonResult= new  JSONResult(code,this.getMessageByCode(code),request.getMethod()+" "+request.getRequestURI());
+
+        UnifyResponse unifyResponse= new  UnifyResponse(code,this.getMessageByCode(code),request.getMethod()+" "+request.getRequestURI());
         /*
          * ResponseEntity 定义http返回体
          * 参数1 请求消息响应体
@@ -73,43 +81,41 @@ public class ExceptionAdvice {
         headers.setContentType(MediaType.APPLICATION_JSON);
 //        格式化http返回状态
         HttpStatus status = HttpStatus.resolve(httpStatusCode);
-        return new ResponseEntity<>(jsonResult,headers,status);
+        return new ResponseEntity<>(unifyResponse,headers,status);
     }
 
+    /**
+     * 监听自定义校验抛出的异常
+     * @param request 请求
+     * @param e 方法异常
+     * @return 异常结果
+     */
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public UnifyResponse handleBeanValidation(HttpServletRequest request , MethodArgumentNotValidException e){
+        //获取所有未通过验证的异常
+        List<ObjectError> errors = e.getBindingResult().getAllErrors();
+        //将异常信息拼接成字符串
+        String messages = this.formatAllErrorMessages(errors);
+        return new UnifyResponse(10001,messages,request.getMethod()+" "+request.getRequestURI());
+    }
 
-//
-//    /**
-//     * 监听自定义校验抛出的异常
-//     * @param request 请求
-//     * @param e 方法异常
-//     * @return 异常结果
-//     */
-//    @ExceptionHandler(MethodArgumentNotValidException.class)
-//    @ResponseStatus(HttpStatus.BAD_REQUEST)
-//    public UnifyResponse handleBeanValidation(HttpServletRequest request , MethodArgumentNotValidException e){
-//        //获取所有未通过验证的异常
-//        List<ObjectError> errors = e.getBindingResult().getAllErrors();
-//        //将异常信息拼接成字符串
-//        String messages = this.formatAllErrorMessages(errors);
-//        return new UnifyResponse(10001,messages,request.getMethod()+" "+request.getRequestURI());
-//    }
-//
-//    /**
-//     * 监听方法参数校验抛出的异常
-//     * @return 异常结果
-//     */
+    /**
+     * 监听方法参数校验抛出的异常
+     * @return 异常结果
+     */
 //    @ExceptionHandler(ConstraintViolationException.class)
 //    @ResponseStatus(HttpStatus.BAD_REQUEST)
 //    public UnifyResponse handleMethodValidation(HttpServletRequest request , ConstraintViolationException e){
 //        return new UnifyResponse(10001,e.getMessage(),request.getMethod()+" "+request.getRequestURI());
 //    }
-//
-//
-//
+
+
+
     private String getMessageByCode(Integer code){
         return configuration.getMessage(code);
     }
-//
+
     private String formatAllErrorMessages(List<ObjectError> errors){
         StringBuffer errorMsg = new StringBuffer();
         errors.forEach(error -> errorMsg.append(error.getDefaultMessage()).append(';'));
