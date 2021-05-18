@@ -55,13 +55,13 @@ public class Category implements Serializable {
     private LocalDateTime createTime;
 
     @ApiModelProperty(value = "分类创建用户")
-    private Integer createUser;
+    private Long createUser;
 
     @ApiModelProperty(value = "分类更新时间")
     private LocalDateTime updateTime;
 
     @ApiModelProperty(value = "分类更新用户")
-    private Integer updateUser;
+    private Long updateUser;
 
 
 }

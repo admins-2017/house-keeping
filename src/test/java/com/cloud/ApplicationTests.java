@@ -67,7 +67,7 @@ class ApplicationTests {
      */
     @Test
     public void testUpdateUser(){
-        User user = User.builder().password("654321").userId(1).build();
+        User user = User.builder().password("654321").userId(1l).build();
         userService.updateById(user);
     }
 

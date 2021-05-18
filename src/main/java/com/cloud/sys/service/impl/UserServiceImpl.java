@@ -29,12 +29,12 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     }
 
     @Override
-    public List<Role> selectRoleByUserId(Integer userId) {
+    public List<Role> selectRoleByUserId(Long userId) {
         return this.baseMapper.selectRoleByUserId(userId);
     }
 
     @Override
-    public List<Menu> selectMenuByUserId(Integer userId) {
+    public List<Menu> selectMenuByUserId(Long userId) {
         return this.baseMapper.getMenus(userId);
     }
 

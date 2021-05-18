@@ -19,5 +19,5 @@ public interface IUserDetailService extends IService<UserDetail> {
      * @param userId 用户id
      * @return 用户基本信息
      */
-    LoginSuccessVO getUserDetailById(Integer userId);
+    LoginSuccessVO getUserDetailById(Long userId);
 }

@@ -28,7 +28,7 @@ public class Menu implements Serializable {
 
     @ApiModelProperty(value = "权限主键")
     @TableId(value = "menu_id", type = IdType.AUTO)
-    private Integer menuId;
+    private Long menuId;
 
     @ApiModelProperty(value = "权限名称")
     private String menuName;
@@ -40,7 +40,7 @@ public class Menu implements Serializable {
     private String path;
 
     @ApiModelProperty(value = "父级id 为0为根目录")
-    private Integer parentId;
+    private Long parentId;
 
     @ApiModelProperty(value = "目录icon")
     private String menuIcon;
@@ -55,16 +55,16 @@ public class Menu implements Serializable {
     private LocalDateTime createTime;
 
     @ApiModelProperty(value = "创建用户")
-    private Integer createUser;
+    private Long createUser;
 
     @ApiModelProperty(value = "修改时间")
     private LocalDateTime updateTime;
 
     @ApiModelProperty(value = "修改用户")
-    private Integer updateUser;
+    private Long updateUser;
 
     @ApiModelProperty(value = "预留租户id")
-    private Integer tenantId;
+    private Long tenantId;
 
 
 }

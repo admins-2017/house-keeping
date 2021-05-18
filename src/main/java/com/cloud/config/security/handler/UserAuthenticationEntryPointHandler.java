@@ -20,6 +20,6 @@ public class UserAuthenticationEntryPointHandler implements AuthenticationEntryP
      */
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception){
-        JSONResult.responseJson(response,JSONResult.resultCode(401,"登录状态失效，请重新登录"));
+        JSONResult.responseJson(response,JSONResult.resultCode(401,"登录出现异常，请重新登录"));
     }
 }

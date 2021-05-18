@@ -19,7 +19,7 @@ import org.springframework.stereotype.Service;
 public class UserDetailServiceImpl extends ServiceImpl<UserDetailMapper, UserDetail> implements IUserDetailService {
 
     @Override
-    public LoginSuccessVO getUserDetailById(Integer userId) {
+    public LoginSuccessVO getUserDetailById(Long userId) {
         return this.baseMapper.getUserDetailById(userId);
     }
 }

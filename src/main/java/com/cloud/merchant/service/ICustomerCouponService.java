@@ -1,6 +1,6 @@
 package com.cloud.merchant.service;
 
-import com.cloud.merchant.entity.UserCoupon;
+import com.cloud.merchant.entity.CustomerCoupon;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
@@ -9,8 +9,8 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * </p>
  *
  * @author 康东伟
- * @since 2021-05-13
+ * @since 2021-05-18
  */
-public interface IUserCouponService extends IService<UserCoupon> {
+public interface ICustomerCouponService extends IService<CustomerCoupon> {
 
 }

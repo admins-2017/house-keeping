@@ -13,7 +13,7 @@ public class LoginSuccessVO {
     /**
      * 用户ID
      */
-    private Integer userId;
+    private Long userId;
     /**
      * 用户名
      */
@@ -46,7 +46,7 @@ public class LoginSuccessVO {
     private String userDetailMail;
 
     @ApiModelProperty(value = "用户所在门店id")
-    private Integer shopId;
+    private Long shopId;
 
     @ApiModelProperty(value = "所属商铺名称")
     private String shopName;

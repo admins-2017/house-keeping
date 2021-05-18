@@ -1,6 +1,6 @@
 package com.cloud.merchant.mapper;
 
-import com.cloud.merchant.entity.UserCoupon;
+import com.cloud.merchant.entity.CustomerCoupon;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**
@@ -9,8 +9,8 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * </p>
  *
  * @author 康东伟
- * @since 2021-05-13
+ * @since 2021-05-18
  */
-public interface UserCouponMapper extends BaseMapper<UserCoupon> {
+public interface CustomerCouponMapper extends BaseMapper<CustomerCoupon> {
 
 }

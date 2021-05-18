@@ -39,5 +39,5 @@ public interface UserDetailMapper extends BaseMapper<UserDetail> {
             "\tJOIN merchant_shop ms ON sud.shop_id = ms.shop_id \n" +
             "WHERE\n" +
             "\tsu.user_id = #{userId}")
-    LoginSuccessVO getUserDetailById(@Param("userId") Integer userId);
+    LoginSuccessVO getUserDetailById(@Param("userId") Long userId);
 }

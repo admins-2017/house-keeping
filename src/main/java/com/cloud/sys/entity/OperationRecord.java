@@ -28,7 +28,7 @@ public class OperationRecord implements Serializable {
 
     @ApiModelProperty(value = "操作记录主键")
     @TableId(value = "record_id", type = IdType.AUTO)
-    private Integer recordId;
+    private Long recordId;
 
     @ApiModelProperty(value = "请求方式")
     private String requestType;

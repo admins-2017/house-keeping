@@ -28,7 +28,7 @@ public class Role implements Serializable {
 
     @ApiModelProperty(value = "角色主键")
     @TableId(value = "role_id", type = IdType.AUTO)
-    private Integer roleId;
+    private Long roleId;
 
     @ApiModelProperty(value = "角色名称")
     private String roleName;
@@ -46,19 +46,19 @@ public class Role implements Serializable {
     private Boolean defaultRole;
 
     @ApiModelProperty(value = "预留租户id")
-    private Integer tenantId;
+    private Long tenantId;
 
     @ApiModelProperty(value = "创建时间")
     private LocalDateTime createTime;
 
     @ApiModelProperty(value = "创建用户")
-    private Integer createUser;
+    private Long createUser;
 
     @ApiModelProperty(value = "修改时间")
     private LocalDateTime updateTime;
 
     @ApiModelProperty(value = "修改用户")
-    private Integer updateUser;
+    private Long updateUser;
 
 
 }

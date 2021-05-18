@@ -14,21 +14,21 @@ import lombok.EqualsAndHashCode;
  * </p>
  *
  * @author 康东伟
- * @since 2021-05-13
+ * @since 2021-05-18
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
-@TableName("merchant_user_coupon")
-@ApiModel(value="UserCoupon对象", description="")
-public class UserCoupon implements Serializable {
+@TableName("merchant_customer_coupon")
+@ApiModel(value="CustomerCoupon对象", description="")
+public class CustomerCoupon implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @ApiModelProperty(value = "客户id")
-    private Long userId;
+    @ApiModelProperty(value = "顾客id")
+    private Integer customerId;
 
     @ApiModelProperty(value = "优惠券id")
-    private Long couponId;
+    private Integer couponId;
 
     @ApiModelProperty(value = "优惠券状态	1 领取未使用	2 已使用	3 已过期")
     private Integer status;
@@ -40,7 +40,7 @@ public class UserCoupon implements Serializable {
     private LocalDateTime updateTime;
 
     @ApiModelProperty(value = "使用优惠券订单的id")
-    private Long orderId;
+    private Integer orderId;
 
 
 }

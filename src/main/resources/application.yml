@@ -92,15 +92,15 @@ spring:
   redis:
     database: 5
     host: 139.186.133.169
-    jedis:
+    port: 6399
+    password: kdw051755.
+    timeout: 6000ms
+    lettuce:
       pool:
         max-active: 8
         max-idle: 8
         max-wait: 30000ms
         min-idle: 1
-    password: kdw051755.
-    port: 6399
-    timeout: 6000ms
 jwt:
   # 密匙KEY
   secret: JWTSecret

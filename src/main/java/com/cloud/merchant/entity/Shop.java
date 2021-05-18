@@ -42,7 +42,7 @@ public class Shop implements Serializable {
     private Integer shopStatus;
 
     @ApiModelProperty(value = "预留租户id")
-    private Integer tenantId;
+    private Long tenantId;
 
 
 }

@@ -30,7 +30,7 @@ public class User implements Serializable {
 
     @ApiModelProperty(value = "用户主键")
     @TableId(value = "user_id", type = IdType.AUTO)
-    private Integer userId;
+    private Long userId;
 
     @ApiModelProperty(value = "用户登录名称")
     private String loginName;
@@ -42,7 +42,7 @@ public class User implements Serializable {
     private String userStatus;
 
     @ApiModelProperty(value = "预留租户id")
-    private Integer tenantId;
+    private Long tenantId;
 
     @ApiModelProperty(value = "注册时间")
     private LocalDateTime registeredTime;

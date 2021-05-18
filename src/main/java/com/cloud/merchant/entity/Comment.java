@@ -39,8 +39,8 @@ public class Comment implements Serializable {
     @ApiModelProperty(value = "项目id")
     private Long projectId;
 
-    @ApiModelProperty(value = "用户id")
-    private Integer userId;
+    @ApiModelProperty(value = "顾客id")
+    private Long customerId;
 
     @ApiModelProperty(value = "评论时间")
     private LocalDateTime createTime;

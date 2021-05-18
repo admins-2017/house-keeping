@@ -3,6 +3,7 @@ package com.cloud.core;
 import com.cloud.core.configuration.ExceptionCodeConfiguration;
 import com.cloud.exception.http.HttpException;
 import com.cloud.utils.json.UnifyResponse;
+import io.lettuce.core.RedisCommandTimeoutException;
 import io.lettuce.core.RedisException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,7 +51,7 @@ public class ExceptionAdvice {
         return new  UnifyResponse(9999,"服务器内部出错",request.getMethod()+" "+request.getRequestURI());
     }
 
-    @ExceptionHandler(value= RedisException.class)
+    @ExceptionHandler(value= RedisCommandTimeoutException.class)
     @ResponseStatus(code = HttpStatus.INTERNAL_SERVER_ERROR)
     public UnifyResponse handleRuntimrException(HttpServletRequest request , Exception e){
         return new  UnifyResponse(9999,"redis连接失败 请重试",request.getMethod()+" "+request.getRequestURI());

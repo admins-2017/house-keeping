@@ -42,14 +42,14 @@ public interface UserMapper extends BaseMapper<User> {
     @Select("SELECT sr.* FROM sys_role sr\n" +
             "\t\tLEFT JOIN sys_user_role se ON se.role_id = sr.role_id\n" +
             "\t\tWHERE se.user_id = #{userId}")
-    List<Role> selectRoleByUserId(@Param("userId") Integer userId);
+    List<Role> selectRoleByUserId(@Param("userId") Long userId);
 
     /**
      * 根据用户id获取权限列表
      * @param userId 用户id
      * @return 权限集合
      */
-    List<Menu> getMenus(Integer userId);
+    List<Menu> getMenus(Long userId);
 
     /**
      * 根据登录名获取用户基本信息

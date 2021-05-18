@@ -63,7 +63,7 @@ public class JWTAuthenticationTokenFilter extends BasicAuthenticationFilter {
                 //组装参数
                 SecurityUser securityUser = new SecurityUser();
                 securityUser.setUsername(claims.getSubject());
-                securityUser.setUserId(Integer.decode(claims.getId()));
+                securityUser.setUserId(Long.parseLong(claims.getId()));
                 securityUser.setLoginName(claims.get("login_name").toString());
                 securityUser.setAuthorities(authorities);
                 UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(securityUser, userId, authorities);

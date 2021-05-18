@@ -1,6 +1,7 @@
 package com.cloud.sys.controller;
 
 
+import com.cloud.sys.service.IOperationRecordService;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import org.springframework.web.bind.annotation.RestController;
@@ -14,7 +15,12 @@ import org.springframework.web.bind.annotation.RestController;
  * @since 2021-05-13
  */
 @RestController
-@RequestMapping("/sys/operation-record")
+@RequestMapping("/sys/record")
 public class OperationRecordController {
 
+    private final IOperationRecordService recordService;
+
+    public OperationRecordController(IOperationRecordService recordService) {
+        this.recordService = recordService;
+    }
 }

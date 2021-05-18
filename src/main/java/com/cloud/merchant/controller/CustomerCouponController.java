@@ -11,10 +11,10 @@ import org.springframework.web.bind.annotation.RestController;
  * </p>
  *
  * @author 康东伟
- * @since 2021-05-13
+ * @since 2021-05-18
  */
 @RestController
-@RequestMapping("/merchant/user-coupon")
-public class UserCouponController {
+@RequestMapping("/merchant/customer-coupon")
+public class CustomerCouponController {
 
 }

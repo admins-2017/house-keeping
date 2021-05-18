@@ -26,10 +26,10 @@ public class StaffOrder implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @ApiModelProperty(value = "服务订单id")
-    private Integer serviceId;
+    private Long serviceId;
 
     @ApiModelProperty(value = "员工id")
-    private Integer userId;
+    private Long userId;
 
     @ApiModelProperty(value = "订单佣金")
     private BigDecimal servicePrice;

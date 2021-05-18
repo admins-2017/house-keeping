@@ -3,6 +3,8 @@ package com.cloud.config.security.handler;
 import com.cloud.exception.login.LoginCodeException;
 import com.cloud.exception.login.LoginResultException;
 import com.cloud.utils.json.JSONResult;
+import io.lettuce.core.RedisCommandTimeoutException;
+import io.lettuce.core.RedisException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.LockedException;

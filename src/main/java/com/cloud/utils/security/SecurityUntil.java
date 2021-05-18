@@ -29,7 +29,7 @@ public class SecurityUntil {
     /**
      * 获取当前用户ID
      */
-    public static Integer getUserId(){
+    public static Long getUserId(){
         return getUserInfo().getUserId();
     }
     /**

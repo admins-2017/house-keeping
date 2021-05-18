@@ -30,14 +30,14 @@ public interface IUserService extends IService<User> {
      * @param userId 用户id
      * @return 角色集合
      */
-    List<Role> selectRoleByUserId(Integer userId);
+    List<Role> selectRoleByUserId(Long userId);
 
     /**
      * 获取用户权限列表
      * @param userId 用户id
      * @return 权限集合
      */
-    List<Menu> selectMenuByUserId(Integer userId);
+    List<Menu> selectMenuByUserId(Long userId);
 
     /**
      * 根据登录名获取用户基本信息

@@ -43,13 +43,13 @@ public class ServiceDetail implements Serializable {
     private LocalDateTime shopAcceptTime;
 
     @ApiModelProperty(value = "门店接单人员")
-    private Integer shopAcceptUser;
+    private Long shopAcceptUser;
 
     @ApiModelProperty(value = "门店指派时间")
     private LocalDateTime shopAssignTime;
 
     @ApiModelProperty(value = "门店指派服务人员")
-    private Integer shopAssignUser;
+    private Long shopAssignUser;
 
     @ApiModelProperty(value = "服务人员接单时间")
     private LocalDateTime serviceUserTime;

@@ -27,10 +27,10 @@ public class UserDetail implements Serializable {
 
     @ApiModelProperty(value = "用户详情主键")
     @TableId(value = "user_detail_id", type = IdType.AUTO)
-    private Integer userDetailId;
+    private Long userDetailId;
 
     @ApiModelProperty(value = "对应用户的id")
-    private Integer userId;
+    private Long userId;
 
     @ApiModelProperty(value = "用户名称")
     private String userName;
