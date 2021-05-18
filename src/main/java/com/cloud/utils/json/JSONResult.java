@@ -1,7 +1,6 @@
 package com.cloud.utils.json;
 
 import com.alibaba.fastjson.JSON;
-import com.cloud.exception.http.HttpException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.http.HttpHeaders;
@@ -9,7 +8,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 
-import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.PrintWriter;

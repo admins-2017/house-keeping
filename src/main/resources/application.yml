@@ -112,3 +112,11 @@ jwt:
   expiration: 8640
   # 配置不需要认证的接口
   antMatchers: /user/test,/menu/basisTree,/login/**,/user/code,/swagger-ui.html,/webjars/**,/swagger-resources/**,/v2/*,/sms/send,/user/verify/**,/inventory/export/**
+
+logging:
+  config: classpath:config/logback-spring.xml
+  level:
+    # web信息日志记录
+    web: debug
+    # SQL日志记录
+    com.cloud.*.mapper: debug

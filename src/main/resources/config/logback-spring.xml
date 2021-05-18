@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 日志级别从低到高分为TRACE < DEBUG < INFO < WARN < ERROR < FATAL，如果设置为WARN，则低于WARN的信息都不会输出 -->
+<!-- scan:当此属性设置为true时，配置文件如果发生改变，将会被重新加载，默认值为true -->
+<!-- scanPeriod:设置监测配置文件是否有修改的时间间隔，如果没有给出时间单位，默认单位是毫秒。当scan为true时，此属性生效。默认的时间间隔为1分钟。 -->
+<!-- debug:当此属性设置为true时，将打印出logback内部日志信息，实时查看logback运行状态。默认值为false。 -->
+<configuration  scan="true" scanPeriod="10 seconds">
+
+    <!--<include resource="org/springframework/boot/logging/logback/base.xml" />-->
+
+    <contextName>logback</contextName>
+
+    <!-- name的值是变量的名称，value的值时变量定义的值。通过定义的值会被插入到logger上下文中。定义变量后，可以使“${}”来使用变量。 -->
+    <property name="filePath" value="logs/" />
+
+    <!-- 彩色日志,需要在idea中安装grep console插件 -->
+    <!-- 彩色日志依赖的渲染类 -->
+    <conversionRule conversionWord="clr" converterClass="org.springframework.boot.logging.logback.ColorConverter" />
+    <conversionRule conversionWord="wex" converterClass="org.springframework.boot.logging.logback.WhitespaceThrowableProxyConverter" />
+    <conversionRule conversionWord="wEx" converterClass="org.springframework.boot.logging.logback.ExtendedWhitespaceThrowableProxyConverter" />
+
+    <!-- 彩色日志格式 -->
+    <property name="CONSOLE_LOG_PATTERN" value="${CONSOLE_LOG_PATTERN:-%clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){faint} %clr(${LOG_LEVEL_PATTERN:-%5p}) %clr(${PID:- }){magenta} %clr(---){faint} %clr([%15.15t]){faint} %clr(%-40.40logger{39}){cyan} %clr(:){faint} %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}}"/>
+
+    <!--输出到控制台-->
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <!--此日志appender是为开发使用，只配置最底级别，控制台输出的日志级别是大于或等于此级别的日志信息-->
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>info</level>
+        </filter>
+        <encoder>
+            <Pattern>${CONSOLE_LOG_PATTERN}</Pattern>
+            <!-- 设置字符集 -->
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+
+    <!--info日志输出到info日志文件-->
+    <appender name="file_info" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <!--过滤 info-->
+            <level>info</level>
+            <!--匹配到就加入到info日志-->
+            <onMatch>ACCEPT</onMatch>
+            <!--没有匹配到就不写入info日志-->
+            <onMismatch>DENY</onMismatch>
+        </filter>
+        <file>${filePath}/log_info.log</file>
+        <Append>true</Append>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!--这样写会压缩-->
+            <fileNamePattern>D:/files/logs/server/bak/log_info.%d{yyyy-MM-dd-HH}.log.zip</fileNamePattern>
+            <!-- 保持历史15天的日志,否则删除旧日志 -->
+            <maxHistory>15</maxHistory>
+            <!--保存最大日志大小,否则删除旧日志-->
+            <totalSizeCap>1GB</totalSizeCap>
+        </rollingPolicy>
+        <!--日志文件格式-->
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <charset>utf-8</charset>
+            <ImmediateFlush>true</ImmediateFlush>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level %logger{32}.%M:%L %msg%n</pattern>
+        </encoder>
+    </appender>
+
+
+    <!--error级别的日志输出到error文件-->
+    <appender name="file_error" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!--ERROR日志放到error文件-->
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>error</level>
+            <onMatch>ACCEPT</onMatch>
+            <!--没有匹配到就不写入info日志-->
+            <onMismatch>DENY</onMismatch>
+        </filter>
+        <!--文件地址和名称-->
+        <file>${filePath}/log_error.log</file>
+
+        <!--分开日志的策略-->
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!--这样写会压缩-->
+            <fileNamePattern>D:/files/logs/server/bak/log_error.%d{yyyy-MM-dd-HH}.log.zip</fileNamePattern>
+            <!-- 保持历史15天的日志,否则删除旧日志 -->
+            <maxHistory>15</maxHistory>
+            <!--保存最大日志大小,否则删除旧日志-->
+            <totalSizeCap>1GB</totalSizeCap>
+        </rollingPolicy>
+
+        <!--日志文件格式-->
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <charset>utf-8</charset>
+            <ImmediateFlush>true</ImmediateFlush>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level %logger{32}.%M:%L %msg%n</pattern>
+        </encoder>
+    </appender>
+
+
+
+    <!--debug级别的日志输出到debug文件-->
+    <appender name="file_debug" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!--ERROR日志放到error文件-->
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>debug</level>
+            <onMatch>ACCEPT</onMatch>
+            <!--没有匹配到就不写入info日志-->
+            <onMismatch>DENY</onMismatch>
+        </filter>
+        <!--文件地址和名称-->
+        <file>${filePath}/log_debug.log</file>
+        <!--分开日志的策略-->
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!--这样写会压缩-->
+            <fileNamePattern>D:/files/logs/server/bak/log_debug.%d{yyyy-MM-dd-HH}.log.zip</fileNamePattern>
+            <!-- 保持历史15天的日志,否则删除旧日志 -->
+            <maxHistory>15</maxHistory>
+            <!--保存最大日志大小,否则删除旧日志-->
+            <totalSizeCap>1GB</totalSizeCap>
+        </rollingPolicy>
+
+        <!--日志文件格式-->
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <charset>utf-8</charset>
+            <ImmediateFlush>true</ImmediateFlush>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level %logger{32}.%M:%L %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <root level="debug">
+        <appender-ref ref="CONSOLE" />
+        <appender-ref ref="file_info"/>
+        <appender-ref ref="file_error"/>
+        <appender-ref ref="file_debug"/>
+    </root>
+
+</configuration>
