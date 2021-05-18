@@ -20,7 +20,7 @@ import lombok.EqualsAndHashCode;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @TableName("merchant_project_img")
-@ApiModel(value="ProjectImg对象", description="")
+@ApiModel(value="ProjectImg对象")
 public class ProjectImg implements Serializable {
 
     private static final long serialVersionUID = 1L;

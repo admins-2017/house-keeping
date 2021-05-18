@@ -20,13 +20,13 @@ import lombok.EqualsAndHashCode;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @TableName("merchant_coupon")
-@ApiModel(value="Coupon对象", description="")
+@ApiModel(value="Coupon对象")
 public class Coupon implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @ApiModelProperty(value = "优惠券主键")
-    private Integer couponId;
+    private Long couponId;
 
     @ApiModelProperty(value = "优惠券名称")
     private String couponName;

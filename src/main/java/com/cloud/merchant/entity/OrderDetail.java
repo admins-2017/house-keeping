@@ -21,23 +21,23 @@ import lombok.EqualsAndHashCode;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @TableName("merchant_order_detail")
-@ApiModel(value="OrderDetail对象", description="")
+@ApiModel(value="OrderDetail对象")
 public class OrderDetail implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @ApiModelProperty(value = "订单详情id")
     @TableId(value = "order_detail_id", type = IdType.AUTO)
-    private Integer orderDetailId;
+    private Long orderDetailId;
 
     @ApiModelProperty(value = "项目 SKU id")
-    private Integer projectSkuId;
+    private Long projectSkuId;
 
     @ApiModelProperty(value = "项目单价")
     private BigDecimal projectPrice;
 
     @ApiModelProperty(value = "订单id")
-    private Integer orderId;
+    private Long orderId;
 
 
 }

@@ -27,13 +27,13 @@ public class SpecValue implements Serializable {
 
     @ApiModelProperty(value = "规格值主键")
     @TableId(value = "value_id", type = IdType.AUTO)
-    private Integer valueId;
+    private Long valueId;
 
     @ApiModelProperty(value = "规格值名称")
     private String valueName;
 
     @ApiModelProperty(value = "对应规格名的id")
-    private Integer keyId;
+    private Long keyId;
 
 
 }

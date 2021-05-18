@@ -21,14 +21,14 @@ import lombok.EqualsAndHashCode;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @TableName("merchant_category")
-@ApiModel(value="Category对象", description="")
+@ApiModel(value="Category对象")
 public class Category implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @ApiModelProperty(value = "分类主键")
     @TableId(value = "category_id", type = IdType.AUTO)
-    private Integer categoryId;
+    private Long categoryId;
 
     @ApiModelProperty(value = "分类名称")
     private String categoryName;
@@ -40,7 +40,7 @@ public class Category implements Serializable {
     private Integer isRoot;
 
     @ApiModelProperty(value = "父节点id 如果为根节点则为空")
-    private Integer parentId;
+    private Long parentId;
 
     @ApiModelProperty(value = "分类图片")
     private String categoryImg;

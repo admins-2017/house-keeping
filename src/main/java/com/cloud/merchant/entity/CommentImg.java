@@ -20,20 +20,20 @@ import lombok.EqualsAndHashCode;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @TableName("merchant_comment_img")
-@ApiModel(value="CommentImg对象", description="")
+@ApiModel(value="CommentImg对象")
 public class CommentImg implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @ApiModelProperty(value = "评论图片主键")
     @TableId(value = "img_id", type = IdType.AUTO)
-    private Integer imgId;
+    private Long imgId;
 
     @ApiModelProperty(value = "评论图片路径")
     private String imgUrl;
 
     @ApiModelProperty(value = "评论内容主键")
-    private Integer commentId;
+    private Long commentId;
 
 
 }

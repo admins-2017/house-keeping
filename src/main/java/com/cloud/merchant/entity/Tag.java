@@ -20,14 +20,14 @@ import lombok.EqualsAndHashCode;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @TableName("merchant_tag")
-@ApiModel(value="Tag对象", description="")
+@ApiModel(value="Tag对象", description="标签")
 public class Tag implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @ApiModelProperty(value = "标签主键")
     @TableId(value = "tag_id", type = IdType.AUTO)
-    private Integer tagId;
+    private Long tagId;
 
     @ApiModelProperty(value = "标签名称")
     private String tagName;

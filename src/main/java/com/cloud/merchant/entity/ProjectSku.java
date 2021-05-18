@@ -1,6 +1,9 @@
 package com.cloud.merchant.entity;
 
 import java.math.BigDecimal;
+
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
 import io.swagger.annotations.ApiModel;
@@ -19,10 +22,14 @@ import lombok.EqualsAndHashCode;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @TableName("merchant_project_sku")
-@ApiModel(value="ProjectSku对象", description="")
+@ApiModel(value="ProjectSku对象")
 public class ProjectSku implements Serializable {
 
     private static final long serialVersionUID = 1L;
+
+    @ApiModelProperty(value = "项目SKU主键")
+    @TableId(value = "id", type = IdType.AUTO)
+    private Long id;
 
     @ApiModelProperty(value = "项目SKU名称")
     private String title;
@@ -40,7 +47,7 @@ public class ProjectSku implements Serializable {
     private String img;
 
     @ApiModelProperty(value = "所属项目主键")
-    private Integer projectId;
+    private Long projectId;
 
     @ApiModelProperty(value = "规格值")
     private String specs;
@@ -49,7 +56,7 @@ public class ProjectSku implements Serializable {
     private String code;
 
     @ApiModelProperty(value = "所属分类id")
-    private Integer categoryId;
+    private Long categoryId;
 
     @ApiModelProperty(value = "员工项目抽成")
     private BigDecimal userRate;

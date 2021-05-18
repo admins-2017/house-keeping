@@ -12,24 +12,20 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 /**
- * <p>
- * 
- * </p>
- *
  * @author 康东伟
  * @since 2021-05-13
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
 @TableName("merchant_activity")
-@ApiModel(value="Activity对象", description="")
+@ApiModel(value="Activity对象")
 public class Activity implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @ApiModelProperty(value = "活动主键")
     @TableId(value = "activity_id", type = IdType.AUTO)
-    private Integer activityId;
+    private Long activityId;
 
     @ApiModelProperty(value = "活动名称")
     private String activityName;

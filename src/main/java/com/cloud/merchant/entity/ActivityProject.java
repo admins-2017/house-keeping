@@ -18,16 +18,16 @@ import lombok.EqualsAndHashCode;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @TableName("merchant_activity_project")
-@ApiModel(value="ActivityProject对象", description="")
+@ApiModel(value="ActivityProject对象")
 public class ActivityProject implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @ApiModelProperty(value = "活动主键")
-    private Integer activityId;
+    private Long activityId;
 
     @ApiModelProperty(value = "项目主键")
-    private Integer projectId;
+    private Long projectId;
 
 
 }

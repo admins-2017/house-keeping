@@ -20,14 +20,14 @@ import lombok.EqualsAndHashCode;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @TableName("merchant_spec_key")
-@ApiModel(value="SpecKey对象", description="")
+@ApiModel(value="SpecKey对象", description="规格名")
 public class SpecKey implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @ApiModelProperty(value = "规格名主键")
     @TableId(value = "key_id", type = IdType.AUTO)
-    private Integer keyId;
+    private Long keyId;
 
     @ApiModelProperty(value = "规格名称")
     private String keyName;

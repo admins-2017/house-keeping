@@ -54,6 +54,6 @@ public class UserDetail implements Serializable {
     private String userDetailMail;
 
     @ApiModelProperty(value = "用户所在门店id")
-    private Integer shopId;
+    private Long shopId;
 
 }

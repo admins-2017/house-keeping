@@ -21,14 +21,14 @@ import lombok.EqualsAndHashCode;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @TableName("merchant_project")
-@ApiModel(value="Project对象", description="")
+@ApiModel(value="Project对象")
 public class Project implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @ApiModelProperty(value = "项目主键")
     @TableId(value = "project_id", type = IdType.AUTO)
-    private Integer projectId;
+    private Long projectId;
 
     @ApiModelProperty(value = "项目名称")
     private String projectName;
@@ -49,16 +49,16 @@ public class Project implements Serializable {
     private String projectTags;
 
     @ApiModelProperty(value = "分类id")
-    private Integer categoryId;
+    private Long categoryId;
 
     @ApiModelProperty(value = "项目状态	1 上线 	2 停用	3 删除")
     private Integer projectStatus;
 
     @ApiModelProperty(value = "可视规格主键 对应key表id")
-    private Integer sketchKeyId;
+    private Long sketchKeyId;
 
     @ApiModelProperty(value = "项目默认SKU主键")
-    private Integer defaultSkuId;
+    private Long defaultSkuId;
 
 
 }

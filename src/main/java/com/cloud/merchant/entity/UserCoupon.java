@@ -24,11 +24,11 @@ public class UserCoupon implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @ApiModelProperty(value = "用户id")
-    private Integer userId;
+    @ApiModelProperty(value = "客户id")
+    private Long userId;
 
     @ApiModelProperty(value = "优惠券id")
-    private Integer couponId;
+    private Long couponId;
 
     @ApiModelProperty(value = "优惠券状态	1 领取未使用	2 已使用	3 已过期")
     private Integer status;
@@ -40,7 +40,7 @@ public class UserCoupon implements Serializable {
     private LocalDateTime updateTime;
 
     @ApiModelProperty(value = "使用优惠券订单的id")
-    private Integer orderId;
+    private Long orderId;
 
 
 }

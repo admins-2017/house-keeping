@@ -1,5 +1,7 @@
 package com.cloud.merchant.entity;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.time.LocalDateTime;
 import java.io.Serializable;
@@ -19,19 +21,20 @@ import lombok.EqualsAndHashCode;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @TableName("merchant_service_detail")
-@ApiModel(value="ServiceDetail对象", description="")
+@ApiModel(value="ServiceDetail对象", description="服务详情")
 public class ServiceDetail implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @ApiModelProperty(value = "服务明细主键")
-    private Integer detailId;
+    @TableId(value = "detail_id",type = IdType.AUTO)
+    private Long detailId;
 
     @ApiModelProperty(value = "预约时间")
     private LocalDateTime reservationTime;
 
-    @ApiModelProperty(value = "预约人")
-    private Integer reservationUser;
+    @ApiModelProperty(value = "预约人 - 顾客")
+    private Long reservationUser;
 
     @ApiModelProperty(value = "预约人联系方式")
     private String reservationTel;
@@ -63,5 +66,6 @@ public class ServiceDetail implements Serializable {
     @ApiModelProperty(value = "备注信息")
     private String serviceRemark;
 
-
+    @ApiModelProperty(value = "对应服务订单主键")
+    private Long serviceId;
 }

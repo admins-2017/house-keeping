@@ -20,19 +20,22 @@ import lombok.EqualsAndHashCode;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @TableName("merchant_order")
-@ApiModel(value="Order对象", description="")
+@ApiModel(value="Order对象")
 public class Order implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @ApiModelProperty(value = "订单主键")
-    private Integer orderId;
+    private Long orderId;
 
     @ApiModelProperty(value = "订单单号")
     private String orderNumber;
 
     @ApiModelProperty(value = "订单所属用户")
-    private Integer userId;
+    private Long customerId;
+
+    @ApiModelProperty(value = "订单所属门店")
+    private Long shopId;
 
     @ApiModelProperty(value = "订单总价格")
     private BigDecimal orderTotalPrice;

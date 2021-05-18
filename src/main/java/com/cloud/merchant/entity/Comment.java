@@ -21,14 +21,14 @@ import lombok.EqualsAndHashCode;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @TableName("merchant_comment")
-@ApiModel(value="Comment对象", description="")
+@ApiModel(value="Comment对象")
 public class Comment implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @ApiModelProperty(value = "项目评论主键")
     @TableId(value = "comment_id", type = IdType.AUTO)
-    private Integer commentId;
+    private Long commentId;
 
     @ApiModelProperty(value = "评论内容")
     private String commentContent;
@@ -37,7 +37,7 @@ public class Comment implements Serializable {
     private Integer commentLevel;
 
     @ApiModelProperty(value = "项目id")
-    private Integer projectId;
+    private Long projectId;
 
     @ApiModelProperty(value = "用户id")
     private Integer userId;

@@ -18,16 +18,16 @@ import lombok.EqualsAndHashCode;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @TableName("merchant_coupon_category")
-@ApiModel(value="CouponCategory对象", description="")
+@ApiModel(value="CouponCategory对象")
 public class CouponCategory implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @ApiModelProperty(value = "优惠券id")
-    private Integer couponId;
+    private Long couponId;
 
     @ApiModelProperty(value = "分类id")
-    private Integer categoryId;
+    private Long categoryId;
 
 
 }
