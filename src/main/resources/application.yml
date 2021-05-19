@@ -111,7 +111,7 @@ jwt:
   # 过期时间 单位秒 1天后过期=86400 7天后过期=604800
   expiration: 8640
   # 配置不需要认证的接口
-  antMatchers: /user/test,/menu/basisTree,/login/**,/user/code,/swagger-ui.html,/webjars/**,/swagger-resources/**,/v2/*,/sms/send,/user/verify/**,/inventory/export/**
+  antMatchers: /menu/basisTree,/login/**,/user/code,/swagger-ui.html,/webjars/**,/swagger-resources/**,/v2/*,/sms/send,/user/verify/**,/inventory/export/**
 
 logging:
   config: classpath:config/logback-spring.xml

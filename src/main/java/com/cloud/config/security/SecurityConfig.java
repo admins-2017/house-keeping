@@ -11,6 +11,7 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.access.expression.DefaultWebSecurityExpressionHandler;
 import org.springframework.web.cors.CorsUtils;
@@ -144,7 +145,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 // 配置没有权限自定义处理类
                 .exceptionHandling().accessDeniedHandler(userAuthAccessDeniedHandler);
         // 基于Token不需要session
-//        http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+        http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         // 禁用缓存并开启iframe调用
         http.headers().cacheControl().and().frameOptions().disable();
         // 添加JWT过滤器

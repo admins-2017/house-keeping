@@ -1,9 +1,9 @@
 package com.cloud.sys.controller;
 
 
-import org.springframework.web.bind.annotation.RequestMapping;
-
-import org.springframework.web.bind.annotation.RestController;
+import com.cloud.sys.service.IRoleService;
+import com.cloud.utils.json.JSONResult;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * <p>
@@ -17,4 +17,29 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/role")
 public class RoleController {
 
+    private final IRoleService roleService;
+
+    public RoleController(IRoleService roleService) {
+        this.roleService = roleService;
+    }
+
+    @PostMapping
+    public JSONResult addRole(){
+        return JSONResult.ok();
+    }
+
+    @PutMapping
+    public JSONResult updateRole(){
+        return JSONResult.ok();
+    }
+
+    @DeleteMapping("/{id}")
+    public JSONResult removeRole(@PathVariable Long id){
+        return JSONResult.ok();
+    }
+
+    @PutMapping("/{id}")
+    public JSONResult updateDefaultRole(@PathVariable Long id){
+        return JSONResult.ok();
+    }
 }
