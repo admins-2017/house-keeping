@@ -6,7 +6,10 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.cloud.config.redis.RedisOperator;
 import com.cloud.sys.entity.User;
 import com.cloud.sys.mapper.UserMapper;
+import com.cloud.sys.service.IRoleService;
 import com.cloud.sys.service.IUserService;
+import com.cloud.utils.interchangeable.ParseMenuTreeUtil;
+import com.cloud.vo.sys.MenuVO;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -22,10 +25,18 @@ class ApplicationTests {
     @Autowired
     private IUserService userService;
 
-
+    @Autowired
+    private IRoleService roleService;
 
     @Autowired
     private RedisOperator redisOperator;
+
+    @Test
+    public void testTreeMenu(){
+        List<MenuVO> vos = roleService.getMenuByRoleId(1l);
+        List<MenuVO> menuVOS = ParseMenuTreeUtil.parseMenuTree(vos);
+        menuVOS.forEach(System.out::println);
+    }
 
     @Test
     public void testRedis(){

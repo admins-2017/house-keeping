@@ -111,7 +111,7 @@ jwt:
   # 过期时间 单位秒 1天后过期=86400 7天后过期=604800
   expiration: 8640
   # 配置不需要认证的接口
-  antMatchers: /menu/basisTree,/login/**,/user/code,/swagger-ui.html,/webjars/**,/swagger-resources/**,/v2/*,/sms/send,/user/verify/**,/inventory/export/**
+  antMatchers: /menu/basisTree,/login/**,/user/code,/swagger-ui/**,/webjars/**,/swagger-resources/**,/v3/**,/sms/send,/user/verify/**,/inventory/export/**,/doc.html
 
 logging:
   config: classpath:config/logback-spring.xml
@@ -120,3 +120,8 @@ logging:
     web: debug
     # SQL日志记录
     com.cloud.*.mapper: debug
+swagger3:
+  enable: true
+  title: 熊猫家政
+  description: 熊猫家政后台管理系统API文档
+  authHeaderKey: Authorization

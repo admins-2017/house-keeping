@@ -1,5 +1,6 @@
 package com.cloud.dto.sys;
 
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -7,6 +8,7 @@ import lombok.Data;
  * @author 康东伟
  * @date 2021/5/19
  */
+@ApiModel("角色实体")
 @Data
 public class RoleDTO {
 

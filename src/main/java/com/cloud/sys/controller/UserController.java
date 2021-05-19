@@ -8,6 +8,7 @@ import com.cloud.exception.http.NotFoundException;
 import com.cloud.utils.json.JSONResult;
 import com.cloud.utils.security.SecurityUntil;
 import com.wf.captcha.ArithmeticCaptcha;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -31,6 +32,7 @@ import java.util.UUID;
  */
 @RestController
 @RequestMapping("/user")
+@Api(value="系统用户控制类",tags = "系统用户控制类")
 public class UserController {
     private final RedisOperator redisOperator;
 

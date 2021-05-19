@@ -1,17 +1,17 @@
-package com.cloud.dto.sys;
+package com.cloud.vo.sys;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
-/**
- * @author 康东伟
- * @date 2021/5/19
- */
-@ApiModel("权限实体")
-@Data
-public class MenuDTO {
+import java.util.ArrayList;
+import java.util.List;
 
+@ApiModel(value="菜单对象")
+@Data
+public class MenuVO {
+
+    @ApiModelProperty(value = "权限主键")
     private Long menuId;
 
     @ApiModelProperty(value = "权限名称")
@@ -31,4 +31,7 @@ public class MenuDTO {
 
     @ApiModelProperty(value = "菜单类型 （类型   0：目录   1：菜单   2：按钮）")
     private Integer menuType;
+
+    @ApiModelProperty(value = "子集权限菜单")
+    private List<MenuVO> children = new ArrayList<>();
 }
