@@ -1,22 +1,22 @@
 package com.cloud.sys.controller;
 
 
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.cloud.config.redis.RedisOperator;
 import com.cloud.config.security.entity.SecurityUser;
-import com.cloud.exception.http.ForbiddenException;
-import com.cloud.exception.http.NotFoundException;
+import com.cloud.dto.sys.UserWithDeatilDTO;
+import com.cloud.sys.entity.User;
+import com.cloud.sys.service.IUserService;
 import com.cloud.utils.json.JSONResult;
 import com.cloud.utils.security.SecurityUntil;
+import com.cloud.vo.sys.UserWithDetailVO;
 import com.wf.captcha.ArithmeticCaptcha;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -34,10 +34,12 @@ import java.util.UUID;
 @RequestMapping("/user")
 @Api(value="系统用户控制类",tags = "系统用户控制类")
 public class UserController {
+    private final IUserService userService;
     private final RedisOperator redisOperator;
 
-    public UserController(RedisOperator redisOperator) {
+    public UserController(RedisOperator redisOperator,IUserService userService) {
         this.redisOperator = redisOperator;
+        this.userService = userService;
     }
 
     @ApiOperation("获取验证码")
@@ -63,12 +65,32 @@ public class UserController {
         return ResponseEntity.ok(imgResult);
     }
 
-    @GetMapping("/info/show")
-    public JSONResult test(){
-        SecurityUser securityUser = SecurityUntil.getUserInfo();
-        System.out.println(securityUser);
-        return JSONResult.ok();
+    @PostMapping
+    public JSONResult addUserAndDetail(UserWithDeatilDTO dto){
+        userService.addUser(dto);
+        return JSONResult.ok("新建用户成功");
     }
+
+    @DeleteMapping("/{id}")
+    public JSONResult removeUser(@PathVariable Long id){
+        userService.update(new UpdateWrapper<User>().lambda()
+                .set(User::getUserStatus,"PROHIBIT").eq(User::getUserId,id));
+        return JSONResult.ok("注销用户成功");
+    }
+
+    @PutMapping
+    public JSONResult updateUser(UserWithDeatilDTO dto){
+        userService.updateUser(dto);
+        return JSONResult.ok("修改用户信息完成");
+    }
+
+    @GetMapping("/{page}/{size}")
+    public JSONResult page(@PathVariable Integer page , @PathVariable Integer size){
+        IPage<UserWithDetailVO> vos =  userService.getPage(page,size);
+        return JSONResult.ok(vos);
+    }
+
+
 
     @GetMapping("/info/admin")
     @PreAuthorize("hasAnyRole('SUPER_ADMIN')")
@@ -92,14 +114,4 @@ public class UserController {
         return "hello,user";
     }
 
-    @GetMapping("/test/error")
-    public String testError() {
-        int i = 1/0;
-        return "";
-    }
-
-    @GetMapping("/test/error2")
-    public String testError2() {
-        throw new NotFoundException(40001);
-    }
 }

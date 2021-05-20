@@ -38,7 +38,7 @@ public class User implements Serializable {
     @ApiModelProperty(value = "用户登录密码")
     private String password;
 
-    @ApiModelProperty(value = "用户账号状态")
+    @ApiModelProperty(value = "用户账号状态 'NORMAL' 正常 'PROHIBIT' 注销  ")
     private String userStatus;
 
     @ApiModelProperty(value = "预留租户id")

@@ -1,10 +1,13 @@
 package com.cloud.sys.mapper;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.cloud.bo.UserInfoBO;
 import com.cloud.sys.entity.Menu;
 import com.cloud.sys.entity.Role;
 import com.cloud.sys.entity.User;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.cloud.vo.sys.UserWithDetailVO;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
@@ -70,4 +73,19 @@ public interface UserMapper extends BaseMapper<User> {
             "WHERE\n" +
             "\tlogin_name = #{name}")
     UserInfoBO getUserInfo(@Param("name") String loginName);
+
+    /**
+     * 分页获取用户
+     * @param detailVOPage 分页对象
+     * @return 用户结果集
+     */
+    @Select("SELECT\n" +
+            "\tsu.user_id,su.login_name,su.`password`,su.user_status,su.registered_time,su.tenant_id,\n" +
+            "\tsud.nick_name,sud.user_name,sud.user_detail_img,sud.user_detail_sex,sud.user_detail_tel,\n" +
+            "\tsud.user_detail_mail,sud.user_detail_address,sud.shop_id,ms.shop_name\n" +
+            "FROM\n" +
+            "\tsys_user su\n" +
+            "\tLEFT JOIN sys_user_detail sud ON su.user_id = sud.user_id\n" +
+            "\tLEFT JOIN merchant_shop ms ON sud.shop_id = ms.shop_id")
+    IPage<UserWithDetailVO> getPage(Page<UserWithDetailVO> detailVOPage);
 }
