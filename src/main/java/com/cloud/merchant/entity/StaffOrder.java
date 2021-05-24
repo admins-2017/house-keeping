@@ -1,6 +1,9 @@
 package com.cloud.merchant.entity;
 
 import java.math.BigDecimal;
+
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.time.LocalDateTime;
 import java.io.Serializable;
@@ -24,6 +27,10 @@ import lombok.EqualsAndHashCode;
 public class StaffOrder implements Serializable {
 
     private static final long serialVersionUID = 1L;
+
+    @ApiModelProperty("员工已完成订单主键")
+    @TableId(value = "员工已完成订单主键",type = IdType.AUTO)
+    private Long id;
 
     @ApiModelProperty(value = "服务订单id")
     private Long serviceId;

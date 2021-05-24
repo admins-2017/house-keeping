@@ -1,6 +1,9 @@
 package com.cloud.merchant.entity;
 
 import java.math.BigDecimal;
+
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.time.LocalDateTime;
 import java.io.Serializable;
@@ -26,6 +29,7 @@ public class Coupon implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @ApiModelProperty(value = "优惠券主键")
+    @TableId(value ="优惠券主键" ,type = IdType.AUTO)
     private Long couponId;
 
     @ApiModelProperty(value = "优惠券名称")

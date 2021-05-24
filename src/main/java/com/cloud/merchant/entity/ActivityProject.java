@@ -1,5 +1,7 @@
 package com.cloud.merchant.entity;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
 import io.swagger.annotations.ApiModel;
@@ -22,6 +24,10 @@ import lombok.EqualsAndHashCode;
 public class ActivityProject implements Serializable {
 
     private static final long serialVersionUID = 1L;
+
+    @ApiModelProperty("主键")
+    @TableId(value = "主键",type = IdType.AUTO)
+    private Long id;
 
     @ApiModelProperty(value = "活动主键")
     private Long activityId;
