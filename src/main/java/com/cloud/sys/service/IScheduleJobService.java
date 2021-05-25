@@ -62,8 +62,13 @@ public interface IScheduleJobService extends IService<ScheduleJob> {
      * @param id 任务id
      * @return 任务详情
      */
-    ScheduleJobVO getTaskId(Integer id);
+    ScheduleJobBO getTaskId(Long id);
 
-
+    /**
+     * 根据参数id获取任务
+     * @param id 任务id
+     * @return 任务详情
+     */
+    ScheduleJobBO getParamId(Long id);
 
 }

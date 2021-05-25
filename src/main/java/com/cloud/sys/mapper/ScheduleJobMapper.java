@@ -34,7 +34,13 @@ public interface ScheduleJobMapper extends BaseMapper<ScheduleJob> {
      * @return
      */
     @Select("select a.*,b.bean_name,b.method_name,b.method_arg_type from sys_schedule_job a LEFT JOIN sys_schedule_detail b on a.detail_id = b.id where a.id = #{id}")
-    ScheduleJobVO getTaskId(@Param("id") Integer id);
+    ScheduleJobBO getTaskId(@Param("id") Long id);
 
-
+    /**
+     * 根据参数id获取任务
+     * @param id 活动id
+     * @return 任务
+     */
+    @Select("select a.*,b.bean_name,b.method_name,b.method_arg_type from sys_schedule_job a LEFT JOIN sys_schedule_detail b on a.detail_id = b.id where a.method_params = #{id}")
+    ScheduleJobBO getParamId(Long id);
 }

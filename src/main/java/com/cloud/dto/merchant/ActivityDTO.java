@@ -42,4 +42,6 @@ public class ActivityDTO {
     @ApiModelProperty(value = "活动状态 1 上线 2 下线 3 活动已结束")
     private Integer activityStatus;
 
+    @ApiModelProperty(value = "活动备注")
+    private String activityRemark;
 }

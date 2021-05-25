@@ -3,14 +3,18 @@ package com.cloud;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.cloud.bo.ScheduleJobBO;
 import com.cloud.config.redis.RedisOperator;
+import com.cloud.sys.entity.ScheduleJob;
 import com.cloud.sys.entity.User;
 import com.cloud.sys.mapper.UserMapper;
 import com.cloud.sys.service.IRoleService;
+import com.cloud.sys.service.IScheduleJobService;
 import com.cloud.sys.service.IUserService;
 import com.cloud.utils.interchangeable.LocalDateTimeUtil;
 import com.cloud.utils.interchangeable.ParseMenuTreeUtil;
 import com.cloud.vo.sys.MenuVO;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -24,6 +28,7 @@ import java.util.Date;
 import java.util.List;
 
 @SpringBootTest
+@Slf4j
 class ApplicationTests {
 
     @Autowired
@@ -34,6 +39,9 @@ class ApplicationTests {
 
     @Autowired
     private RedisOperator redisOperator;
+
+    @Autowired
+    private IScheduleJobService scheduleJobService;
 
     @Test
     public void testTreeMenu(){

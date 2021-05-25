@@ -6,10 +6,14 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import java.time.LocalDateTime;
 import java.io.Serializable;
+
+import com.cloud.dto.merchant.ActivityDTO;
+import com.cloud.utils.interchangeable.LocalDateTimeUtil;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 /**
  * @author 康东伟
@@ -19,6 +23,7 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = false)
 @TableName("merchant_activity")
 @ApiModel(value="活动实体")
+@NoArgsConstructor
 public class Activity implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -54,4 +59,20 @@ public class Activity implements Serializable {
     @ApiModelProperty(value = "活动状态 1 上线 2 下线 3 活动已结束")
     private Integer activityStatus;
 
+    @ApiModelProperty(value = "活动备注")
+    private String activityRemark;
+
+    public Activity(ActivityDTO dto) {
+        this.activityId = dto.getActivityId();
+        this.activityName = dto.getActivityName();
+        this.activityTheme = dto.getActivityTheme();
+        this.activityStartTime = LocalDateTimeUtil.parseStringToDateTime(dto.getActivityStartTime(),"yyyy-MM-dd HH:mm:ss");
+        this.activityEndTime = LocalDateTimeUtil.parseStringToDateTime(dto.getActivityEndTime(),"yyyy-MM-dd HH:mm:ss");
+        this.activityType = dto.getActivityType();
+        this.activityFulfill = dto.getActivityFulfill();
+        this.activityMinus = dto.getActivityMinus();
+        this.activityDiscount = dto.getActivityDiscount();
+        this.activityStatus = dto.getActivityStatus();
+        this.activityRemark = dto.getActivityRemark();
+    }
 }

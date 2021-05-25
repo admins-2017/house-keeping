@@ -1,6 +1,10 @@
 package com.cloud.jobs;
 
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
+import com.cloud.merchant.entity.Activity;
+import com.cloud.merchant.service.IActivityService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,8 +19,8 @@ import java.util.List;
 @Slf4j
 public class TestJob {
 
-//    private final IStatisticsService statisticsService;
-//    private final IDayService dayService;
+    @Autowired
+    private IActivityService activityService;
 
     /**
      * 默认执行方法
@@ -28,15 +32,12 @@ public class TestJob {
     /**
      * 默认执行方法
      */
-//    public void test(User user){
-//        log.info("执行test："+user.toString());
-//    }
-
-    /**
-     * 默认执行方法
-     */
-    public void getMailUrl(String url){
-        log.info("执行getMailUrl："+url);
+    public void stopActivity(Long aid){
+        log.info("执行getMailUrl："+aid);
+        activityService.update(new UpdateWrapper<Activity>()
+            .lambda().set(Activity::getActivityStatus,3)
+            .eq(Activity::getActivityId,aid)
+        );
     }
 
     /**
@@ -47,29 +48,5 @@ public class TestJob {
         list.stream().forEach(System.out::println);
     }
 
-//    public void testObjectList(List<User> list){
-//        for (User user : list) {
-//            System.out.println(user);
-//        }
-//    }
-
-    /**
-     * 定时统计
-     */
-//    public void timingStatistics(){
-//        statisticsService.insertStatistics();
-//    }
-
-    /**
-     * 每日统计进销次数
-     */
-//    public void countByDay(){
-//        dayService.addCountByDay();
-//    }
-//
-//    public TestJob(IStatisticsService statisticsService,IDayService dayService) {
-//        this.statisticsService = statisticsService;
-//        this.dayService = dayService;
-//    }
 }
 

@@ -1,15 +1,10 @@
 package com.cloud.config.swagger;
 
-import com.google.common.base.Function;
-import com.google.common.base.Optional;
-import com.google.common.base.Predicate;
-import io.swagger.annotations.Api;
 import io.swagger.models.auth.In;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.bind.annotation.RestController;
-import springfox.documentation.RequestHandler;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
@@ -23,9 +18,9 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * @Description: Swagger3 拦截器
- * @Author: junqiang.lu
- * @Date: 2021/1/25
+ * Swagger3 拦截器
+ * @author  康东伟
+ * @date  2021/1/25
  */
 @EnableOpenApi
 @Configuration
@@ -39,9 +34,6 @@ public class Swagger3Config {
     private String description;
     @Value("${swagger3.authHeaderKey}")
     private String authHeaderKey;
-
-    private static final String splitor = ";";
-
 
     @Bean
     public Docket docket() {
@@ -65,8 +57,7 @@ public class Swagger3Config {
 
     /**
      * Swagger UI 头部信息
-     *
-     * @return
+     * @return Api
      */
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
@@ -80,8 +71,7 @@ public class Swagger3Config {
 
     /**
      * 权限认证信息(token)
-     *
-     * @return
+     * @return 集合
      */
     private List<SecurityScheme> securitySchemes() {
         ApiKey apiKey = new ApiKey(authHeaderKey, authHeaderKey, In.HEADER.toValue());
@@ -100,24 +90,5 @@ public class Swagger3Config {
         );
     }
 
-    public static Predicate<RequestHandler> basePackage(final String basePackage) {
-        return input -> declaringClass(input).transform(handlerPackage(basePackage)).or(true);
-    }
 
-    private static Function<Class<?>, Boolean> handlerPackage(final String basePackage)     {
-        return input -> {
-            // 循环判断匹配
-            for (String strPackage : basePackage.split(splitor)) {
-                boolean isMatch = input.getPackage().getName().startsWith(strPackage);
-                if (isMatch) {
-                    return true;
-                }
-            }
-            return false;
-        };
-    }
-
-    private static Optional<? extends Class<?>> declaringClass(RequestHandler input) {
-        return Optional.fromNullable(input.declaringClass());
-    }
 }

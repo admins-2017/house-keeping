@@ -46,12 +46,10 @@ public class ScheduleJobServiceImpl extends ServiceImpl<ScheduleJobMapper, Sched
                     .withSchedule(CronScheduleBuilder.cronSchedule(job.getCronExpression()))
                     .startNow()
                     .build();
-
             //创建任务
             JobDetail jobDetail = JobBuilder.newJob(QuartzFactory.class)
                     .withIdentity(job.getJobName())
                     .build();
-
             //传入调度的数据，在QuartzFactory中需要使用
             jobDetail.getJobDataMap().put("scheduleJob", job);
             //调度作业
@@ -103,10 +101,14 @@ public class ScheduleJobServiceImpl extends ServiceImpl<ScheduleJobMapper, Sched
     }
 
     @Override
-    public ScheduleJobVO getTaskId(Integer id) {
+    public ScheduleJobBO getTaskId(Long id) {
         return this.baseMapper.getTaskId(id);
     }
 
+    @Override
+    public ScheduleJobBO getParamId(Long id) {
+        return this.baseMapper.getParamId(id);
+    }
 
 
 }

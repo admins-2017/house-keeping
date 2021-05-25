@@ -6,11 +6,15 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import java.time.LocalDateTime;
 import java.io.Serializable;
 
+import com.cloud.merchant.entity.Activity;
+import com.cloud.utils.interchangeable.LocalDateTimeUtil;
+import com.cloud.utils.security.SecurityUntil;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 /**
  * <p>
@@ -24,6 +28,7 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = false)
 @TableName("sys_schedule_job")
 @ApiModel(value="任务对象", description="")
+@NoArgsConstructor
 public class ScheduleJob implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -42,7 +47,7 @@ public class ScheduleJob implements Serializable {
     private String cronExpression;
 
     @ApiModelProperty(value = "任务详情id")
-    private Integer detailId;
+    private Long detailId;
 
     @ApiModelProperty(value = "方法参数")
     private String methodParams;
@@ -67,5 +72,14 @@ public class ScheduleJob implements Serializable {
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
     private LocalDateTime updatedTime;
 
-
+    public ScheduleJob(Activity activity) {
+        this.jobName = activity.getActivityName();
+        this.jobIntroduction = activity.getActivityRemark();
+        this.cronExpression = LocalDateTimeUtil.getDateTimeAsCron(activity.getActivityEndTime());
+        this.detailId = 3L;
+        this.methodParams = activity.getActivityId().toString();
+        this.creatorId = SecurityUntil.getUserId();
+        this.creatorName = SecurityUntil.getUserName();
+        this.createdTime = activity.getActivityStartTime();
+    }
 }
