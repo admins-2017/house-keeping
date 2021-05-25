@@ -8,6 +8,7 @@ import com.cloud.sys.entity.User;
 import com.cloud.sys.mapper.UserMapper;
 import com.cloud.sys.service.IRoleService;
 import com.cloud.sys.service.IUserService;
+import com.cloud.utils.interchangeable.LocalDateTimeUtil;
 import com.cloud.utils.interchangeable.ParseMenuTreeUtil;
 import com.cloud.vo.sys.MenuVO;
 import org.junit.jupiter.api.Test;
@@ -15,8 +16,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @SpringBootTest
@@ -140,5 +144,23 @@ class ApplicationTests {
 //        Page<User> userPage = userService.page(page);
 //        System.out.println(userPage);
     }
+
+    @Test
+    public void testLocal(){
+        LocalDateTime now = LocalDateTime.now();
+        String format  = "yyyy-MM-dd HH:mm:ss";
+        String dateTimeAsString = LocalDateTimeUtil.getDateTimeAsString(now, format);
+        System.out.println(dateTimeAsString);
+    }
+
+    @Test
+    public void test_getCron(){
+        String format  = "yyyy-MM-dd HH:mm:ss";
+        String dateTime = "2021-05-25 11:30:37";
+        LocalDateTime time = LocalDateTimeUtil.parseStringToDateTime(dateTime, format);
+        String dateTimeAsCron = LocalDateTimeUtil.getDateTimeAsCron(time);
+        System.out.println(dateTimeAsCron);
+    }
+
 
 }

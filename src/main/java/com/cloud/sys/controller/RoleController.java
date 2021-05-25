@@ -92,7 +92,7 @@ public class RoleController {
     @GetMapping("/{id}")
     public JSONResult getMenuByRoleId(@PathVariable Long id){
         List<MenuVO> vos = roleService.getMenuByRoleId(id);
-        List<MenuVO> menuVOS = ParseMenuTreeUtil.parseMenuTree(vos);
-        return JSONResult.ok(menuVOS);
+        List<MenuVO> menuVos = ParseMenuTreeUtil.parseMenuTree(vos);
+        return JSONResult.ok(menuVos);
     }
 }

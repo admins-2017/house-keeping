@@ -1,30 +1,18 @@
-package com.cloud.merchant.entity;
+package com.cloud.dto.merchant;
 
-import java.math.BigDecimal;
-import com.baomidou.mybatisplus.annotation.TableName;
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
-import java.time.LocalDateTime;
-import java.io.Serializable;
-import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
+
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 /**
  * @author 康东伟
- * @since 2021-05-13
+ * @date 2021/5/25
  */
 @Data
-@EqualsAndHashCode(callSuper = false)
-@TableName("merchant_activity")
-@ApiModel(value="活动实体")
-public class Activity implements Serializable {
-
-    private static final long serialVersionUID = 1L;
-
+public class ActivityDTO {
     @ApiModelProperty(value = "活动主键")
-    @TableId(value = "activity_id", type = IdType.AUTO)
     private Long activityId;
 
     @ApiModelProperty(value = "活动名称")
@@ -34,10 +22,10 @@ public class Activity implements Serializable {
     private String activityTheme;
 
     @ApiModelProperty(value = "活动开始时间")
-    private LocalDateTime activityStartTime;
+    private String activityStartTime;
 
     @ApiModelProperty(value = "活动结束时间")
-    private LocalDateTime activityEndTime;
+    private String activityEndTime;
 
     @ApiModelProperty(value = "活动类型	1 满减活动 (指定项目满减)	2 满减折扣 (指定项目 达到满减要求 对总金额进行打折)	3 无条件折扣活动 (指定项目 购买对总金额打折)")
     private Integer activityType;
