@@ -45,9 +45,6 @@ public class Project implements Serializable {
     @ApiModelProperty(value = "项目购买须知")
     private String projectNotice;
 
-    @ApiModelProperty(value = "项目标签")
-    private String projectTags;
-
     @ApiModelProperty(value = "分类id")
     private Long categoryId;
 

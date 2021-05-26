@@ -1,6 +1,7 @@
 package com.cloud.merchant.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.cloud.bo.ScheduleJobBO;
 import com.cloud.dto.merchant.ActivityDTO;
 import com.cloud.merchant.entity.Activity;
@@ -10,12 +11,14 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.cloud.sys.entity.ScheduleJob;
 import com.cloud.sys.service.IScheduleJobService;
 import com.cloud.utils.interchangeable.LocalDateTimeUtil;
+import com.cloud.vo.merchant.ActivityAndProjectVO;
 import lombok.extern.slf4j.Slf4j;
 import org.quartz.SchedulerException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * <p>
@@ -76,5 +79,12 @@ public class ActivityServiceImpl extends ServiceImpl<ActivityMapper, Activity> i
                 e.printStackTrace();
             }
         }
+    }
+
+    @Override
+    public Page<ActivityAndProjectVO> getProject(Integer page,Integer size, Long aid) {
+        page = (page - 1) * size;
+        Page<ActivityAndProjectVO> pages = new Page(page,size);
+        return this.baseMapper.getProject(pages,aid);
     }
 }
