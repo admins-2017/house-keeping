@@ -1,6 +1,7 @@
 package com.cloud.sys.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.cloud.bo.ScheduleJobBO;
@@ -108,6 +109,13 @@ public class ScheduleJobServiceImpl extends ServiceImpl<ScheduleJobMapper, Sched
     @Override
     public ScheduleJobBO getParamId(Long id) {
         return this.baseMapper.getParamId(id);
+    }
+
+    @Override
+    public void deleteJob(Integer id) {
+        this.update(new UpdateWrapper<ScheduleJob>().lambda().set(ScheduleJob::getDeleteFlag,true)
+            .eq(ScheduleJob::getId,id)
+        );
     }
 
 

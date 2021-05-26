@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.cloud.bo.ScheduleJobBO;
 import com.cloud.dto.merchant.ActivityDTO;
+import com.cloud.exception.http.ParameterException;
 import com.cloud.merchant.entity.Activity;
 import com.cloud.merchant.mapper.ActivityMapper;
 import com.cloud.merchant.service.IActivityService;
@@ -86,5 +87,21 @@ public class ActivityServiceImpl extends ServiceImpl<ActivityMapper, Activity> i
         page = (page - 1) * size;
         Page<ActivityAndProjectVO> pages = new Page(page,size);
         return this.baseMapper.getProject(pages,aid);
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void offline(Long aid) {
+//        将活动状态改为下线
+        this.update(new UpdateWrapper<Activity>().lambda()
+                .set(Activity::getActivityStatus,2).eq(Activity::getActivityId,aid));
+        ScheduleJobBO job = this.scheduleJobService.getParamId(aid);
+        try {
+//            将任务删除
+            this.scheduleJobService.deleteJob(job.getId());
+            this.scheduleJobService.operateJob(3,job);
+        } catch (SchedulerException e) {
+            throw new ParameterException(60001);
+        }
     }
 }

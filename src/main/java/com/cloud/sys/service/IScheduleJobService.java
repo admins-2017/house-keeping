@@ -71,4 +71,9 @@ public interface IScheduleJobService extends IService<ScheduleJob> {
      */
     ScheduleJobBO getParamId(Long id);
 
+    /**
+     * 删除任务
+     * @param id 任务id
+     */
+    void deleteJob(Integer id);
 }

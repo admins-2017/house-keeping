@@ -2,6 +2,7 @@ package com.cloud.merchant.controller;
 
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.cloud.dto.merchant.ActivityDTO;
 import com.cloud.merchant.entity.Activity;
@@ -61,5 +62,11 @@ public class ActivityController {
     public JSONResult getProjectByActivityId(@PathVariable Integer page , @PathVariable Integer size, @PathVariable Long aid){
         Page<ActivityAndProjectVO> vos = activityService.getProject(page,size,aid);
         return JSONResult.ok(vos);
+    }
+
+    @DeleteMapping("/{aid}")
+    public JSONResult offlineActivity(@PathVariable Long aid){
+        activityService.offline(aid);
+        return JSONResult.ok("活动已下线");
     }
 }

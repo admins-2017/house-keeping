@@ -1,6 +1,7 @@
 package com.cloud.utils.json;
 
 import com.alibaba.fastjson.JSON;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.http.HttpHeaders;
@@ -49,6 +50,9 @@ public class JSONResult implements Serializable {
      * 响应中的数据
      */
     private Object data;
+
+    @JsonIgnore
+    private String ok;
 
     public static JSONResult build(Integer status, String msg, Object data) {
         return new JSONResult(status, msg, data);

@@ -36,4 +36,10 @@ public interface IActivityService extends IService<Activity> {
      * @return 项目列表
      */
     Page<ActivityAndProjectVO> getProject(Integer page, Integer size, Long aid);
+
+    /**
+     * 下线活动
+     * @param aid 活动id
+     */
+    void offline(Long aid);
 }
