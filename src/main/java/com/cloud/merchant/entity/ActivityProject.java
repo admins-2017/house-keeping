@@ -8,6 +8,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 /**
  * <p>
@@ -21,6 +22,7 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = false)
 @TableName("merchant_activity_project")
 @ApiModel(value="ActivityProject对象")
+@NoArgsConstructor
 public class ActivityProject implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -35,5 +37,8 @@ public class ActivityProject implements Serializable {
     @ApiModelProperty(value = "项目主键")
     private Long projectId;
 
-
+    public ActivityProject(Long activityId, Long projectId) {
+        this.activityId = activityId;
+        this.projectId = projectId;
+    }
 }
