@@ -109,7 +109,7 @@ jwt:
   # Token前缀字符
   tokenPrefix: Kang-
   # 过期时间 单位秒 1天后过期=86400 7天后过期=604800
-  expiration: 8640
+  expiration: 86400
   # 配置不需要认证的接口
   antMatchers: /menu/basisTree,/login/**,/user/code,/swagger-ui/**,/webjars/**,/swagger-resources/**,/v3/**,/sms/send,/user/verify/**,/inventory/export/**,/doc.html
 

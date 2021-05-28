@@ -1,7 +1,9 @@
 package com.cloud.merchant.controller;
 
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.cloud.dto.merchant.ActivityAndProjects;
+import com.cloud.exception.http.ParameterException;
 import com.cloud.merchant.entity.ActivityProject;
 import com.cloud.merchant.service.IActivityProjectService;
 import com.cloud.utils.json.JSONResult;
@@ -36,20 +38,25 @@ public class ActivityProjectController {
         log.info(activityId.toString());
         List<Long> projectIds = ids.getProjectIds();
         List<ActivityProject> list = new ArrayList<>();
-        projectIds.forEach( id -> {
-            list.add(new ActivityProject(activityId,id));
-        });
+        projectIds.forEach( id -> list.add(new ActivityProject(activityId,id)));
         this.activityProjectService.saveBatch(list);
         return JSONResult.ok("已添加项目到活动中");
     }
 
     @PostMapping
-    public JSONResult addProjectByActivity(){
-        return JSONResult.ok();
+    public JSONResult addProjectByActivity(@RequestParam Long aid,@RequestParam Long pid){
+        ActivityProject activityProject = this.activityProjectService.getOne(new QueryWrapper<ActivityProject>().lambda().eq(ActivityProject::getActivityId, aid)
+                .eq(ActivityProject::getProjectId, pid));
+        if (activityProject!=null){
+            throw new ParameterException(60002);
+        }
+        this.activityProjectService.save(ActivityProject.builder().activityId(aid).projectId(pid).build());
+        return JSONResult.ok("新增项目成功");
     }
 
-    @PutMapping
-    public JSONResult updateActivityUnderProject(){
+    @DeleteMapping
+    public JSONResult updateActivityUnderProject(@RequestBody List<Long> ids){
+        log.info(ids.toString());
         return JSONResult.ok();
     }
 }
