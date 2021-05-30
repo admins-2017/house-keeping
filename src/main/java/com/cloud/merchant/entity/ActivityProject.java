@@ -28,7 +28,7 @@ public class ActivityProject implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @ApiModelProperty("主键")
-    @TableId(value = "主键",type = IdType.AUTO)
+    @TableId(value = "id",type = IdType.AUTO)
     private Long id;
 
     @ApiModelProperty(value = "活动主键")

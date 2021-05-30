@@ -56,7 +56,7 @@ public class ActivityProjectController {
 
     @DeleteMapping
     public JSONResult updateActivityUnderProject(@RequestBody List<Long> ids){
-        log.info(ids.toString());
-        return JSONResult.ok();
+        activityProjectService.removeByIds(ids);
+        return JSONResult.ok("移除项目完成");
     }
 }

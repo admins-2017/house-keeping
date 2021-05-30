@@ -5,6 +5,9 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import java.time.LocalDateTime;
 import java.io.Serializable;
+
+import com.cloud.dto.merchant.CategoryDTO;
+import com.cloud.utils.security.SecurityUntil;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -64,4 +67,16 @@ public class Category implements Serializable {
     private Long updateUser;
 
 
+    public Category(CategoryDTO dto) {
+      this.categoryName = dto.getCategoryName();
+      this.categoryDescription = dto.getCategoryDescription();
+      this.isRoot = dto.getIsRoot();
+      if (dto.getParentId()!=null){
+          this.parentId = dto.getParentId();
+      }
+      this.categoryImg = dto.getCategoryImg();
+      this.categoryLevel = dto.getCategoryLevel();
+      this.createTime = LocalDateTime.now();
+      this.createUser = SecurityUntil.getUserId();
+    }
 }
