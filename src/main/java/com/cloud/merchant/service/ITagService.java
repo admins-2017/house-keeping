@@ -2,6 +2,9 @@ package com.cloud.merchant.service;
 
 import com.cloud.merchant.entity.Tag;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.cloud.vo.merchant.ProjectByTagVO;
+
+import java.util.List;
 
 /**
  * <p>
@@ -13,4 +16,16 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface ITagService extends IService<Tag> {
 
+    /**
+     * 删除标签
+     * @param id 标签id
+     */
+    void deleteTag(Long id);
+
+    /**
+     * 根据标签获取项目
+     * @param id 标签id
+     * @return 标签下的项目
+     */
+    List<ProjectByTagVO> getProject(Long id);
 }

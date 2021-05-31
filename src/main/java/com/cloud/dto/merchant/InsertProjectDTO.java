@@ -1,33 +1,17 @@
-package com.cloud.merchant.entity;
+package com.cloud.dto.merchant;
 
-import java.math.BigDecimal;
-import com.baomidou.mybatisplus.annotation.TableName;
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
-import java.io.Serializable;
-import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
+
+import java.math.BigDecimal;
 
 /**
- * <p>
- * 
- * </p>
- *
  * @author 康东伟
- * @since 2021-05-13
+ * @date 2021/05/31 20:00:00
  */
 @Data
-@EqualsAndHashCode(callSuper = false)
-@TableName("merchant_project")
-@ApiModel(value="Project对象")
-public class Project implements Serializable {
+public class InsertProjectDTO {
 
-    private static final long serialVersionUID = 1L;
-
-    @ApiModelProperty(value = "项目主键")
-    @TableId(value = "project_id", type = IdType.AUTO)
     private Long projectId;
 
     @ApiModelProperty(value = "项目名称")
@@ -56,5 +40,4 @@ public class Project implements Serializable {
 
     @ApiModelProperty(value = "项目默认SKU主键")
     private Long defaultSkuId;
-
 }

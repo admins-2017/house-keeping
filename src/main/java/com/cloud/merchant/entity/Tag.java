@@ -41,5 +41,4 @@ public class Tag implements Serializable {
     @ApiModelProperty(value = "是否高亮")
     private Boolean tagIsHighight;
 
-
 }
