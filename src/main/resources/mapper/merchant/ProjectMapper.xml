@@ -2,4 +2,22 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cloud.merchant.mapper.ProjectMapper">
 
+
+    <select id="getProjectByRootCategory" resultType="com.cloud.vo.merchant.ProjectByCategoryVO">
+        SELECT
+            project_id,
+            project_name,
+            project_price,
+            project_discount_price,
+            project_description,
+            project_notice,
+            project_status
+        FROM
+            merchant_project
+        WHERE
+            category_id IN
+            <foreach collection="ids" item="item" index="index" open="(" separator="," close=")">
+                #{item}
+            </foreach>
+    </select>
 </mapper>

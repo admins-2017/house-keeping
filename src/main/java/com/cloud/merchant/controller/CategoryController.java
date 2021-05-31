@@ -3,6 +3,7 @@ package com.cloud.merchant.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.cloud.dto.merchant.CategoryDTO;
 import com.cloud.dto.merchant.UpdateCategoryDTO;
 import com.cloud.merchant.entity.Category;
@@ -13,11 +14,14 @@ import com.cloud.merchant.service.ICouponCategoryService;
 import com.cloud.merchant.service.IProjectService;
 import com.cloud.utils.json.JSONResult;
 import com.cloud.utils.security.SecurityUntil;
+import com.cloud.vo.merchant.CategoryVO;
+import com.cloud.vo.merchant.ProjectByCategoryVO;
 import io.swagger.annotations.Api;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * <p>
@@ -82,11 +86,17 @@ public class CategoryController {
 
     @GetMapping("/{page}/{size}")
     public JSONResult getCategoryByPage(@PathVariable Integer page,@PathVariable Integer size){
-        return JSONResult.ok(page+size);
+        return JSONResult.ok(categoryService.getPage(page,size));
     }
 
-    @GetMapping("/{cid}")
-    public JSONResult getProjectByCategory(@PathVariable Long cid){
-        return JSONResult.ok(cid);
+    /**
+     * 获取分类下的项目
+     * @param cid 分类id
+     * @param root 是否为跟分类
+     * @return 响应实体
+     */
+    @GetMapping("/{cid}/{root}/project")
+    public JSONResult getProjectByCategory(@PathVariable Long cid,@PathVariable Integer root){
+        return JSONResult.ok( this.categoryService.getProject(cid,root));
     }
 }

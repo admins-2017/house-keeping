@@ -10,8 +10,7 @@ import com.cloud.dto.merchant.CategoryDTO;
 import com.cloud.utils.security.SecurityUntil;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.*;
 
 /**
  * <p>
@@ -25,6 +24,9 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = false)
 @TableName("merchant_category")
 @ApiModel(value="Category对象")
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Category implements Serializable {
 
     private static final long serialVersionUID = 1L;
