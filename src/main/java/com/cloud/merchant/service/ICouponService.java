@@ -1,5 +1,6 @@
 package com.cloud.merchant.service;
 
+import com.cloud.dto.merchant.CouponDTO;
 import com.cloud.merchant.entity.Coupon;
 import com.baomidou.mybatisplus.extension.service.IService;
 
@@ -13,4 +14,11 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface ICouponService extends IService<Coupon> {
 
+
+    /**
+     * 新增优惠券
+     * @param dto 优惠券实体
+     * @return 更新条数
+     */
+    int addCoupon(CouponDTO dto);
 }

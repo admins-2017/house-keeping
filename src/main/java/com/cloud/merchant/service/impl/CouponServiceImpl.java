@@ -1,9 +1,11 @@
 package com.cloud.merchant.service.impl;
 
+import com.cloud.dto.merchant.CouponDTO;
 import com.cloud.merchant.entity.Coupon;
 import com.cloud.merchant.mapper.CouponMapper;
 import com.cloud.merchant.service.ICouponService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 /**
@@ -17,4 +19,11 @@ import org.springframework.stereotype.Service;
 @Service
 public class CouponServiceImpl extends ServiceImpl<CouponMapper, Coupon> implements ICouponService {
 
+
+    @Override
+    public int addCoupon(CouponDTO dto) {
+        Coupon coupon = new Coupon();
+        BeanUtils.copyProperties(dto,coupon);
+        return this.baseMapper.insert(coupon);
+    }
 }

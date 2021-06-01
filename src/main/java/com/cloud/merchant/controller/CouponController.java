@@ -26,7 +26,11 @@ public class CouponController {
 
     @PostMapping
     public JSONResult addCoupon(@RequestBody CouponDTO dto){
-        return JSONResult.ok(dto);
+        if (1 == this.couponService.addCoupon(dto)){
+            return JSONResult.ok("新增优惠券成功");
+        }else{
+            return JSONResult.ok("新增优惠券成功");
+        }
     }
 
     @PutMapping
