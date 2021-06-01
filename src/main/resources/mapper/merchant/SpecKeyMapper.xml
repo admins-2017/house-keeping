@@ -2,4 +2,18 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cloud.merchant.mapper.SpecKeyMapper">
 
+    <resultMap id="all" type="com.cloud.vo.merchant.SpecKeyVO">
+        <id column="key_id" property="keyId"></id>
+        <result column="key_name" property="keyName"></result>
+        <result column="key_description" property="keyDescription"></result>
+        <result column="key_unit" property="keyUnit"></result>
+        <collection property="values" ofType="com.cloud.vo.merchant.SpecValueVO"
+                    select="com.cloud.merchant.mapper.SpecValueMapper.getAllByKeyId" column="key_id">
+
+        </collection>
+    </resultMap>
+
+    <select id="getAllKeyAndValue" resultMap="all">
+        SELECT key_id,key_name,key_unit,key_description FROM merchant_spec_key
+    </select>
 </mapper>

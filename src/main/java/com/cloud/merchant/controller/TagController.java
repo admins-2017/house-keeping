@@ -4,24 +4,22 @@ package com.cloud.merchant.controller;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.cloud.merchant.entity.Tag;
-import com.cloud.merchant.service.ITagProjectService;
 import com.cloud.merchant.service.ITagService;
 import com.cloud.utils.json.JSONResult;
 import com.cloud.vo.merchant.ProjectByTagVO;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 /**
- * <p>
- *  前端控制器
- * </p>
- *
+ * 标签控制类
  * @author 康东伟
  * @since 2021-05-13
  */
 @RestController
 @RequestMapping("/tag")
+@Slf4j
 public class TagController {
 
     private final ITagService service;
@@ -38,12 +36,13 @@ public class TagController {
 
     @PutMapping
     public JSONResult updateTag(@RequestBody Tag tag){
+        log.info(tag.toString());
         service.update(new UpdateWrapper<Tag>().lambda()
         .set(!"".equals(tag.getTagName()),Tag::getTagName,tag.getTagName())
         .set(!"".equals(tag.getTagDescription()),Tag::getTagDescription,tag.getTagDescription())
         .set(tag.getTagIsHighight()!=null,Tag::getTagIsHighight,tag.getTagIsHighight())
         .eq(Tag::getTagId,tag.getTagId()));
-        return JSONResult.ok();
+        return JSONResult.ok("修改标签详情成功");
     }
 
     @DeleteMapping("/{id}")

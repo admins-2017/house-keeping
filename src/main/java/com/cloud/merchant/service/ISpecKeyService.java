@@ -2,6 +2,9 @@ package com.cloud.merchant.service;
 
 import com.cloud.merchant.entity.SpecKey;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.cloud.vo.merchant.SpecKeyVO;
+
+import java.util.List;
 
 /**
  * <p>
@@ -13,4 +16,9 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface ISpecKeyService extends IService<SpecKey> {
 
+    /**
+     * 获取所有规格信息
+     * @return 规格列表
+     */
+    List<SpecKeyVO> getAllKeyAndValue();
 }

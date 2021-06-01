@@ -2,6 +2,9 @@ package com.cloud.merchant.mapper;
 
 import com.cloud.merchant.entity.SpecKey;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.cloud.vo.merchant.SpecKeyVO;
+
+import java.util.List;
 
 /**
  * <p>
@@ -13,4 +16,9 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  */
 public interface SpecKeyMapper extends BaseMapper<SpecKey> {
 
+    /**
+     * 获取所有规格信息
+     * @return 规格列表
+     */
+    List<SpecKeyVO> getAllKeyAndValue();
 }

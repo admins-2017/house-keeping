@@ -4,7 +4,10 @@ import com.cloud.merchant.entity.SpecKey;
 import com.cloud.merchant.mapper.SpecKeyMapper;
 import com.cloud.merchant.service.ISpecKeyService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.cloud.vo.merchant.SpecKeyVO;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * <p>
@@ -17,4 +20,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class SpecKeyServiceImpl extends ServiceImpl<SpecKeyMapper, SpecKey> implements ISpecKeyService {
 
+    @Override
+    public List<SpecKeyVO> getAllKeyAndValue() {
+        return this.baseMapper.getAllKeyAndValue();
+    }
 }
